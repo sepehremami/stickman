@@ -1,4 +1,3 @@
-from datetime import datetime
 import logging
 from .state import StateManager
 from .army import Miner
@@ -41,9 +40,11 @@ class Game:
         timestamp = userin.pop()
         func_name: str = userin.pop(0).replace("-", "_")
 
-        time_obj = datetime.strptime(timestamp, "%M:%S:%f")
+        time_seconds = (lambda l: l[0] * 60 + l[1] + l[2] / 1000)(
+            list(map(int, timestamp.split(":")))
+        )
 
-        return func_name, userin, time_obj
+        return func_name, userin, time_seconds
 
     def run(self):
         logging.info("Inside Game.run")

@@ -3,13 +3,14 @@ from .callback import Callback
 
 
 class StateManager:
-    last_command_timestamp = None
+    last_command_timestamp = 0
     __money = 500
     __cooldown = []  # like a penalty box for funcs used their ability
     __callbacks = []
     __troops = []
     __enemies = []
     __events = []
+    GOV_HELP = 180
 
     @classmethod
     def call_callbacks(cls):
@@ -24,10 +25,11 @@ class StateManager:
         for callback in cls.__callbacks:
             if callback.timestamp + callback.cooldown < timestamp:
                 callback()
-                cls.__callbacks.remove(callback)
-                cls.__cooldown.append(callback)
+                callback.timestamp += 10
+                # cls.__callbacks.remove(callback)
+                # cls.__cooldown.append(callback)
 
-        logging.info(cls.__events)
+        logging.info(f"state manager add events: {cls.__events}")
 
     @classmethod
     def update_time(cls, timestamp):
@@ -43,6 +45,7 @@ class StateManager:
 
     @classmethod
     def add_troop(cls, troop_obj):
+        cls.__money -= troop_obj.price
         callback = troop_obj._callback
         # callback.cooldown = troop_obj.cooldown
         # callback.created = troop_obj.created

@@ -1,4 +1,3 @@
-from datetime import timedelta
 import logging
 from typing import Callable
 from .state import StateManager
@@ -42,13 +41,12 @@ class Miner(ArmyUnit):
     hp = 100
     price = 150  # coins
     collected_money = 100  # coins
-    cooldown = timedelta(seconds=10)  # seconds\
+    cooldown = 10  # seconds\
     work_unit = 1
 
     def yield_coin(self):
-        # StateManager.collect_money(self.__class__.collected_money)
-        print("hello yield coin")
-
+        StateManager.collect_money(self.__class__.collected_money)
+        logging.info(f"{self.__class__.__name__} yielding coin")
         pass
 
     # yield_coin = sign_function(yield_coin)
