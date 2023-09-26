@@ -1,6 +1,25 @@
-2023-09-26 23:06:24,756 - INFO - Game started!
-2023-09-26 23:06:24,756 - INFO - Inside Game.run
-2023-09-26 23:06:34,504 - INFO - [('add', datetime.time(0, 0, 0, 10000))]
-2023-09-26 23:06:34,504 - INFO - 1 comming in are ava
-2023-09-26 23:06:34,504 - INFO - 1 work units are ava
-2023-09-26 23:06:34,504 - INFO - Miner Troop object (100) at your service
+2023-09-27 00:31:20,575 - INFO - Game started!
+2023-09-27 00:31:20,575 - INFO - Inside Game.run
+2023-09-27 00:31:25,786 - INFO - [('add', datetime.datetime(1900, 1, 1, 0, 0, 0, 10000))]
+2023-09-27 00:31:25,786 - INFO - 1 comming in are ava
+2023-09-27 00:31:25,786 - INFO - 1 work units are ava
+2023-09-27 00:31:25,786 - INFO - Miner Troop object (100) at your service
+2023-09-27 00:31:25,786 - INFO - yield_coin
+2023-09-27 00:31:25,786 - INFO - callbacks are here: [yield_coin at 1900-01-01 00:00:00.010000]
+2023-09-27 00:31:33,021 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
+2023-09-27 00:31:33,021 - INFO - 
+	1900-01-01 00:00:00.010000
+	0:00:10
+	1900-01-01 00:00:00.010000
+2023-09-27 00:31:33,021 - INFO - [('add', datetime.datetime(1900, 1, 1, 0, 0, 0, 10000)), ('add', datetime.datetime(1900, 1, 1, 0, 0, 10, 90000))]
+2023-09-27 00:31:33,021 - INFO - 1 comming in are ava
+2023-09-27 00:31:33,022 - INFO - 2 work units are ava
+2023-09-27 00:31:33,022 - INFO - Miner Troop object (100) at your service
+2023-09-27 00:31:33,022 - INFO - yield_coin
+2023-09-27 00:31:33,022 - INFO - callbacks are here: [yield_coin at 1900-01-01 00:00:10.090000]
+2023-09-27 00:31:48,277 - INFO - [('add', datetime.datetime(1900, 1, 1, 0, 0, 0, 10000)), ('add', datetime.datetime(1900, 1, 1, 0, 0, 10, 90000)), ('add', datetime.datetime(1900, 1, 1, 0, 0, 15))]
+2023-09-27 00:31:48,278 - INFO - 1 comming in are ava
+2023-09-27 00:31:48,278 - INFO - 3 work units are ava
+2023-09-27 00:31:48,278 - INFO - Miner Troop object (100) at your service
+2023-09-27 00:31:48,278 - INFO - yield_coin
+2023-09-27 00:31:48,278 - INFO - callbacks are here: [yield_coin at 1900-01-01 00:00:10.090000, yield_coin at 1900-01-01 00:00:15]

@@ -8,7 +8,7 @@ class CommandManager:
     @staticmethod
     def add(info, timestamp):
         role: str = info.pop()
-        troop = eval(f"{role.capitalize()}()")
+        troop = eval(f"{role.capitalize()}(timestamp)")
         StateManager.add_troop(troop)
 
     @staticmethod
@@ -41,7 +41,7 @@ class Game:
         timestamp = userin.pop()
         func_name: str = userin.pop(0).replace("-", "_")
 
-        time_obj = datetime.strptime(timestamp, "%M:%S:%f").time()
+        time_obj = datetime.strptime(timestamp, "%M:%S:%f")
 
         return func_name, userin, time_obj
 

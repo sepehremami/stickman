@@ -1,3 +1,4 @@
+from datetime import timedelta
 import logging
 from typing import Callable
 from .state import StateManager
@@ -21,9 +22,11 @@ class ArmyUnit(BaseArmy):
     hp: int = None
     price: int = None
     cooldown: int = None
+    created = None
     _callback: Callable = None
 
-    def __init__(self) -> None:
+    def __init__(self, timestamp) -> None:
+        self.__class__.created = timestamp
         super().__init__(self.__class__.work_unit)
 
     def __repr__(self) -> str:
@@ -39,14 +42,16 @@ class Miner(ArmyUnit):
     hp = 100
     price = 150  # coins
     collected_money = 100  # coins
-    cooldown = 10  # seconds\
+    cooldown = timedelta(seconds=10)  # seconds\
     work_unit = 1
 
     def yield_coin(self):
         # StateManager.collect_money(self.__class__.collected_money)
+        print("hello yield coin")
 
         pass
 
+    # yield_coin = sign_function(yield_coin)
     _callback = yield_coin
 
 
