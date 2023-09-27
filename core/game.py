@@ -7,8 +7,13 @@ class CommandManager:
     @staticmethod
     def add(info, timestamp):
         role: str = info.pop()
-        troop = eval(f"{role.capitalize()}(timestamp)")
-        StateManager.add_troop(troop)
+        price = int(eval((f"{role.capitalize()}.price")))
+        if price > StateManager.money_status():
+            print("not enough money")
+        else:
+            troop = eval(f"{role.capitalize()}(timestamp)")
+            StateManager.add_troop(troop)
+            print(troop.total_work_unit)
 
     @staticmethod
     def damage(info, timestamp):
