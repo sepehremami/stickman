@@ -23,9 +23,11 @@ class ArmyUnit(BaseArmy):
     cooldown: int = None
     created = None
     _callback: Callable = None
+    idx = 0
 
     def __init__(self, timestamp) -> None:
         self.__class__.created = timestamp
+        self.idx = self.__class__.idx + 1
         super().__init__(self.__class__.work_unit)
 
     def __repr__(self) -> str:
