@@ -1,12 +1,10 @@
 import logging
 from .callback import Callback
+from .decorators import check_dragon_dead
 
 
 def goverment_help():
     StateManager.collect_money(StateManager.GOV_HELP)
-
-
-
 
 
 class StateManager:
