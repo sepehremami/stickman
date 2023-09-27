@@ -2,13 +2,17 @@ import logging
 from .callback import Callback
 
 
+def goverment_help():
+    StateManager.collect_money(StateManager.GOV_HELP)
+
+
 class StateManager:
     last_command_timestamp = 0
     __money = 500
-    __cooldown = []  # like a penalty box for funcs used their ability
-    __callbacks = []
+    __callbacks = [
+        Callback(goverment_help, cooldown=20, timestamp=0, last_command_timestamp=0)
+    ]
     __troops = []
-    __enemies = []
     __events = []
     GOV_HELP = 180
 
@@ -25,10 +29,9 @@ class StateManager:
         for callback in cls.__callbacks:
             if callback.timestamp + callback.cooldown < timestamp:
                 callback()
-                callback.timestamp += 10
-                # cls.__callbacks.remove(callback)
-                # cls.__cooldown.append(callback)
+                callback.timestamp += callback.cooldown
 
+        logging.info(f"callbacks inside add event{cls.__callbacks}")
         logging.info(f"state manager add events: {cls.__events}")
 
     @classmethod
@@ -45,10 +48,11 @@ class StateManager:
 
     @classmethod
     def add_troop(cls, troop_obj):
+        if cls.__money - troop_obj.price < 0:
+            print("Not enough money")
+            return
         cls.__money -= troop_obj.price
         callback = troop_obj._callback
-        # callback.cooldown = troop_obj.cooldown
-        # callback.created = troop_obj.created
 
         cls.__callbacks.append(
             Callback(

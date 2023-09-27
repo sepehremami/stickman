@@ -1,0 +1,21 @@
+money-status 00:00:01
+money-status 00:19:99
+money-status 00:20:01
+money-status 00:30:01
+money-status 00:40:01
+money-status 00:59:99
+money-status 01:00:01
+
+
+money-status 00:19:999
+money-status 00:20:001
+add miner 00:20:002
+money-status 00:20:003
+add miner 00:20:004
+money-status 00:20:005
+add miner 00:20:006
+money-status 00:20:007
+add miner 00:20:008
+money-status 00:20:009
+add miner 00:29:010
+add miner 00:30:011

@@ -1,54 +1,84 @@
-2023-09-27 02:14:24,058 - INFO - Game started!
-2023-09-27 02:14:24,058 - INFO - Inside Game.run
-2023-09-27 02:14:29,504 - INFO - state manager add events: [('add', 0.001)]
-2023-09-27 02:14:29,504 - INFO - 1 comming in are ava
-2023-09-27 02:14:29,504 - INFO - 1 work units are ava
-2023-09-27 02:14:29,504 - INFO - Miner Troop object (100) at your service
-2023-09-27 02:14:29,504 - INFO - yield_coin
-2023-09-27 02:14:29,505 - INFO - callbacks are here: [yield_coin at 0.001]
-2023-09-27 02:14:36,241 - INFO - state manager add events: [('add', 0.001), ('money_status', 0.002)]
-2023-09-27 02:14:45,521 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
-2023-09-27 02:14:45,521 - INFO - 
-	0.001
+2023-09-27 02:47:35,449 - INFO - Game started!
+2023-09-27 02:47:35,449 - INFO - Inside Game.run
+2023-09-27 02:47:39,111 - INFO - callbacks inside add event[goverment_help at 0]
+2023-09-27 02:47:39,111 - INFO - state manager add events: [('money_status', 19.999)]
+2023-09-27 02:47:42,128 - INFO - inside callback <function goverment_help at 0x7f3126f92840>
+2023-09-27 02:47:42,128 - INFO - 
+	0
+	20
+	0
+2023-09-27 02:47:42,128 - INFO - callbacks inside add event[goverment_help at 20]
+2023-09-27 02:47:42,128 - INFO - state manager add events: [('money_status', 19.999), ('money_status', 20.001)]
+2023-09-27 02:47:45,032 - INFO - callbacks inside add event[goverment_help at 20]
+2023-09-27 02:47:45,032 - INFO - state manager add events: [('money_status', 19.999), ('money_status', 20.001), ('add', 20.002)]
+2023-09-27 02:47:45,032 - INFO - 1 comming in are ava
+2023-09-27 02:47:45,032 - INFO - 1 work units are ava
+2023-09-27 02:47:45,032 - INFO - Miner Troop object (100) at your service
+2023-09-27 02:47:45,032 - INFO - yield_coin
+2023-09-27 02:47:45,032 - INFO - callbacks are here: [goverment_help at 20, yield_coin at 20.002]
+2023-09-27 02:47:47,760 - INFO - callbacks inside add event[goverment_help at 20, yield_coin at 20.002]
+2023-09-27 02:47:47,760 - INFO - state manager add events: [('money_status', 19.999), ('money_status', 20.001), ('add', 20.002), ('money_status', 20.003)]
+2023-09-27 02:47:50,379 - INFO - callbacks inside add event[goverment_help at 20, yield_coin at 20.002]
+2023-09-27 02:47:50,379 - INFO - state manager add events: [('money_status', 19.999), ('money_status', 20.001), ('add', 20.002), ('money_status', 20.003), ('add', 20.004)]
+2023-09-27 02:47:50,379 - INFO - 1 comming in are ava
+2023-09-27 02:47:50,379 - INFO - 2 work units are ava
+2023-09-27 02:47:50,379 - INFO - Miner Troop object (100) at your service
+2023-09-27 02:47:50,379 - INFO - yield_coin
+2023-09-27 02:47:50,379 - INFO - callbacks are here: [goverment_help at 20, yield_coin at 20.002, yield_coin at 20.004]
+2023-09-27 02:47:54,387 - INFO - callbacks inside add event[goverment_help at 20, yield_coin at 20.002, yield_coin at 20.004]
+2023-09-27 02:47:54,387 - INFO - state manager add events: [('money_status', 19.999), ('money_status', 20.001), ('add', 20.002), ('money_status', 20.003), ('add', 20.004), ('money_status', 20.005)]
+2023-09-27 02:47:56,721 - INFO - callbacks inside add event[goverment_help at 20, yield_coin at 20.002, yield_coin at 20.004]
+2023-09-27 02:47:56,721 - INFO - state manager add events: [('money_status', 19.999), ('money_status', 20.001), ('add', 20.002), ('money_status', 20.003), ('add', 20.004), ('money_status', 20.005), ('add', 20.006)]
+2023-09-27 02:47:56,721 - INFO - 1 comming in are ava
+2023-09-27 02:47:56,721 - INFO - 3 work units are ava
+2023-09-27 02:47:56,721 - INFO - Miner Troop object (100) at your service
+2023-09-27 02:47:56,722 - INFO - yield_coin
+2023-09-27 02:47:56,722 - INFO - callbacks are here: [goverment_help at 20, yield_coin at 20.002, yield_coin at 20.004, yield_coin at 20.006]
+2023-09-27 02:47:59,720 - INFO - callbacks inside add event[goverment_help at 20, yield_coin at 20.002, yield_coin at 20.004, yield_coin at 20.006]
+2023-09-27 02:47:59,720 - INFO - state manager add events: [('money_status', 19.999), ('money_status', 20.001), ('add', 20.002), ('money_status', 20.003), ('add', 20.004), ('money_status', 20.005), ('add', 20.006), ('money_status', 20.007)]
+2023-09-27 02:48:02,873 - INFO - callbacks inside add event[goverment_help at 20, yield_coin at 20.002, yield_coin at 20.004, yield_coin at 20.006]
+2023-09-27 02:48:02,873 - INFO - state manager add events: [('money_status', 19.999), ('money_status', 20.001), ('add', 20.002), ('money_status', 20.003), ('add', 20.004), ('money_status', 20.005), ('add', 20.006), ('money_status', 20.007), ('add', 20.008)]
+2023-09-27 02:48:02,873 - INFO - 1 comming in are ava
+2023-09-27 02:48:02,873 - INFO - 4 work units are ava
+2023-09-27 02:48:02,873 - INFO - Miner Troop object (100) at your service
+2023-09-27 02:48:02,873 - INFO - yield_coin
+2023-09-27 02:48:02,873 - INFO - callbacks are here: [goverment_help at 20, yield_coin at 20.002, yield_coin at 20.004, yield_coin at 20.006, yield_coin at 20.008]
+2023-09-27 02:48:06,568 - INFO - callbacks inside add event[goverment_help at 20, yield_coin at 20.002, yield_coin at 20.004, yield_coin at 20.006, yield_coin at 20.008]
+2023-09-27 02:48:06,568 - INFO - state manager add events: [('money_status', 19.999), ('money_status', 20.001), ('add', 20.002), ('money_status', 20.003), ('add', 20.004), ('money_status', 20.005), ('add', 20.006), ('money_status', 20.007), ('add', 20.008), ('money_status', 20.009)]
+2023-09-27 02:48:09,136 - INFO - callbacks inside add event[goverment_help at 20, yield_coin at 20.002, yield_coin at 20.004, yield_coin at 20.006, yield_coin at 20.008]
+2023-09-27 02:48:09,136 - INFO - state manager add events: [('money_status', 19.999), ('money_status', 20.001), ('add', 20.002), ('money_status', 20.003), ('add', 20.004), ('money_status', 20.005), ('add', 20.006), ('money_status', 20.007), ('add', 20.008), ('money_status', 20.009), ('add', 29.01)]
+2023-09-27 02:48:09,136 - INFO - 1 comming in are ava
+2023-09-27 02:48:09,137 - INFO - 5 work units are ava
+2023-09-27 02:48:14,355 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
+2023-09-27 02:48:14,355 - INFO - 
+	20.002
 	10
-	0.001
-2023-09-27 02:14:45,521 - INFO - Miner yielding coin
-2023-09-27 02:14:45,521 - INFO - state manager add events: [('add', 0.001), ('money_status', 0.002), ('money_status', 10.09)]
-2023-09-27 02:14:51,809 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
-2023-09-27 02:14:51,809 - INFO - 
-	10.001
+	20.002
+2023-09-27 02:48:14,356 - INFO - Miner yielding coin
+2023-09-27 02:48:14,356 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
+2023-09-27 02:48:14,356 - INFO - 
+	20.004
 	10
-	0.001
-2023-09-27 02:14:51,810 - INFO - Miner yielding coin
-2023-09-27 02:14:51,810 - INFO - state manager add events: [('add', 0.001), ('money_status', 0.002), ('money_status', 10.09), ('money_status', 20.009)]
-2023-09-27 02:14:58,513 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
-2023-09-27 02:14:58,513 - INFO - 
-	20.000999999999998
+	20.004
+2023-09-27 02:48:14,356 - INFO - Miner yielding coin
+2023-09-27 02:48:14,356 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
+2023-09-27 02:48:14,356 - INFO - 
+	20.006
 	10
-	0.001
-2023-09-27 02:14:58,513 - INFO - Miner yielding coin
-2023-09-27 02:14:58,513 - INFO - state manager add events: [('add', 0.001), ('money_status', 0.002), ('money_status', 10.09), ('money_status', 20.009), ('money_status', 30.009)]
-2023-09-27 02:15:40,281 - INFO - state manager add events: [('add', 0.001), ('money_status', 0.002), ('money_status', 10.09), ('money_status', 20.009), ('money_status', 30.009), ('add', 30.01)]
-2023-09-27 02:15:40,282 - INFO - 1 comming in are ava
-2023-09-27 02:15:40,282 - INFO - 2 work units are ava
-2023-09-27 02:15:40,282 - INFO - Miner Troop object (100) at your service
-2023-09-27 02:15:40,282 - INFO - yield_coin
-2023-09-27 02:15:40,282 - INFO - callbacks are here: [yield_coin at 30.000999999999998, yield_coin at 30.01]
-2023-09-27 02:15:55,010 - INFO - state manager add events: [('add', 0.001), ('money_status', 0.002), ('money_status', 10.09), ('money_status', 20.009), ('money_status', 30.009), ('add', 30.01), ('money_status', 30.011)]
-2023-09-27 02:16:09,890 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
-2023-09-27 02:16:09,890 - INFO - 
-	30.000999999999998
+	20.006
+2023-09-27 02:48:14,356 - INFO - Miner yielding coin
+2023-09-27 02:48:14,356 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
+2023-09-27 02:48:14,356 - INFO - 
+	20.008
 	10
-	0.001
-2023-09-27 02:16:09,890 - INFO - Miner yielding coin
-2023-09-27 02:16:09,890 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
-2023-09-27 02:16:09,890 - INFO - 
-	30.01
-	10
-	30.01
-2023-09-27 02:16:09,890 - INFO - Miner yielding coin
-2023-09-27 02:16:09,890 - INFO - state manager add events: [('add', 0.001), ('money_status', 0.002), ('money_status', 10.09), ('money_status', 20.009), ('money_status', 30.009), ('add', 30.01), ('money_status', 30.011), ('money_status', 40.012)]
-2023-09-27 02:16:37,578 - INFO - state manager add events: [('add', 0.001), ('money_status', 0.002), ('money_status', 10.09), ('money_status', 20.009), ('money_status', 30.009), ('add', 30.01), ('money_status', 30.011), ('money_status', 40.012), ('money_status', 40.013)]
-2023-09-27 02:16:48,002 - INFO - state manager add events: [('add', 0.001), ('money_status', 0.002), ('money_status', 10.09), ('money_status', 20.009), ('money_status', 30.009), ('add', 30.01), ('money_status', 30.011), ('money_status', 40.012), ('money_status', 40.013), ('money_status', 41.0)]
-2023-09-27 02:16:53,946 - INFO - state manager add events: [('add', 0.001), ('money_status', 0.002), ('money_status', 10.09), ('money_status', 20.009), ('money_status', 30.009), ('add', 30.01), ('money_status', 30.011), ('money_status', 40.012), ('money_status', 40.013), ('money_status', 41.0), ('money_status', 42.0)]
-2023-09-27 02:16:59,714 - INFO - state manager add events: [('add', 0.001), ('money_status', 0.002), ('money_status', 10.09), ('money_status', 20.009), ('money_status', 30.009), ('add', 30.01), ('money_status', 30.011), ('money_status', 40.012), ('money_status', 40.013), ('money_status', 41.0), ('money_status', 42.0), ('money_status', 45.0)]
+	20.008
+2023-09-27 02:48:14,356 - INFO - Miner yielding coin
+2023-09-27 02:48:14,356 - INFO - callbacks inside add event[goverment_help at 20, yield_coin at 30.002, yield_coin at 30.004, yield_coin at 30.006, yield_coin at 30.008]
+2023-09-27 02:48:14,356 - INFO - state manager add events: [('money_status', 19.999), ('money_status', 20.001), ('add', 20.002), ('money_status', 20.003), ('add', 20.004), ('money_status', 20.005), ('add', 20.006), ('money_status', 20.007), ('add', 20.008), ('money_status', 20.009), ('add', 29.01), ('add', 30.011)]
+2023-09-27 02:48:14,356 - INFO - 1 comming in are ava
+2023-09-27 02:48:14,356 - INFO - 6 work units are ava
+2023-09-27 02:48:14,356 - INFO - Miner Troop object (100) at your service
+2023-09-27 02:48:14,356 - INFO - yield_coin
+2023-09-27 02:48:14,356 - INFO - callbacks are here: [goverment_help at 20, yield_coin at 30.002, yield_coin at 30.004, yield_coin at 30.006, yield_coin at 30.008, yield_coin at 30.011]
+2023-09-27 02:48:25,960 - INFO - callbacks inside add event[goverment_help at 20, yield_coin at 30.002, yield_coin at 30.004, yield_coin at 30.006, yield_coin at 30.008, yield_coin at 30.011]
+2023-09-27 02:48:25,960 - INFO - state manager add events: [('money_status', 19.999), ('money_status', 20.001), ('add', 20.002), ('money_status', 20.003), ('add', 20.004), ('money_status', 20.005), ('add', 20.006), ('money_status', 20.007), ('add', 20.008), ('money_status', 20.009), ('add', 29.01), ('add', 30.011), ('money_status', 30.012)]
