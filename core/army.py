@@ -42,20 +42,33 @@ class Miner(ArmyUnit):
     hp = 100
     price = 150  # coins
     collected_money = 100  # coins
-    cooldown = 10  # seconds\
+    cooldown = 10  # seconds
     work_unit = 1
 
-    def yield_coin(self):
+    def callback_yield_coin(self):
         StateManager.collect_money(self.__class__.collected_money)
         logging.info(f"{self.__class__.__name__} number {self.idx} yielding coin")
-        pass
 
     # yield_coin = sign_function(yield_coin)
-    _callback = yield_coin
+    _callback = callback_yield_coin
 
 
-class Swordwrath(BaseArmy):
-    pass
+class Swordwrath(ArmyUnit):
+    hp = 100
+    price = 125
+    cooldown = 1
+    work_unit = 1
+    power = 20
+
+    def callback_attack_dragon(self):
+        StateManager.attack_dragon(self.power)
+        logging.info(
+            f"{self.__class__.__name__} number {self.idx} is attacking the dragon"
+        )
+
+    _callback = callback_attack_dragon
+
+    # TODO: take the callback funtion by the callback_ in the function name instead of doing this
 
 
 class Archidon(BaseArmy):
