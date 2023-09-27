@@ -6,6 +6,9 @@ def goverment_help():
     StateManager.collect_money(StateManager.GOV_HELP)
 
 
+
+
+
 class StateManager:
     last_command_timestamp = 0
     __money = 500
@@ -35,32 +38,6 @@ class StateManager:
         cls.update_time(timestamp)
         cls.__events.append((move, timestamp))
         cls.call_callbacks(timestamp=timestamp)
-
-    @classmethod
-    def call_callbacks(cls, timestamp):
-        diff = timestamp - cls.last_command_timestamp
-        for callback in cls.__callbacks:
-            if callback.timestamp + callback.cooldown < timestamp:
-                if callback.func.__name__ != "goverment_help":
-                    n = diff / callback.cooldown
-                    logging.info(
-                        f"\n\tdiff:{diff}\n\tn:{n}\n\tcooldown:{callback.cooldown} \
-                        \n\ttimestamp:{timestamp}\n\tlast_time:{cls.last_command_timestamp} \
-                        \n\tcallback timestamp:{callback.timestamp}"
-                    )
-                    if n > 1:
-                        for _ in range(int(n)):
-                            callback()
-                            if check := cls._check_dragon_dead():
-                                return check
-                    else:
-                        callback()
-                else:
-                    callback()
-                callback.timestamp += callback.cooldown
-
-        logging.info(f"callbacks inside add event{cls.__callbacks}")
-        logging.info(f"state manager add events: {cls.__events}")
 
     @classmethod
     def update_time(cls, timestamp):
@@ -142,3 +119,29 @@ class StateManager:
             logging.info(
                 f"dragon is taking {damage} damage; its health is: {cls.DRAGON}"
             )
+
+    @classmethod
+    def call_callbacks(cls, timestamp):
+        diff = timestamp - cls.last_command_timestamp
+        for callback in cls.__callbacks:
+            if callback.timestamp + callback.cooldown < timestamp:
+                if callback.func.__name__ != "goverment_help":
+                    n = diff / callback.cooldown
+                    logging.info(
+                        f"\n\tdiff:{diff}\n\tn:{n}\n\tcooldown:{callback.cooldown} \
+                        \n\ttimestamp:{timestamp}\n\tlast_time:{cls.last_command_timestamp} \
+                        \n\tcallback timestamp:{callback.timestamp}"
+                    )
+                    if n > 1:
+                        for _ in range(int(n)):
+                            callback()
+                            if check := cls._check_dragon_dead():
+                                return check
+                    else:
+                        callback()
+                else:
+                    callback()
+                callback.timestamp += callback.cooldown
+
+        logging.info(f"callbacks inside add event{cls.__callbacks}")
+        logging.info(f"state manager add events: {cls.__events}")
