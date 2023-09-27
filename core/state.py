@@ -76,7 +76,6 @@ class StateManager:
         # TODO: check if len troops is out of range
         cls.__troops.append(troop_obj)
         logging.info(troop_obj)
-        logging.info(callback.__name__)
         logging.info(f"callbacks are here: {cls.__callbacks}")
 
     @classmethod

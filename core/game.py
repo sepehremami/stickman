@@ -44,6 +44,7 @@ class Game:
 
     @staticmethod
     def handle_input(userin):
+        logging.info(f"user input : {userin}")
         userin = userin.split()
         timestamp = userin.pop()
         func_name: str = userin.pop(0).replace("-", "_")
@@ -54,9 +55,9 @@ class Game:
 
         return func_name, userin, time_seconds
 
-    def run(self):
+    def run(self, num, dragon_health):
         logging.info("Inside Game.run")
-        while True:
+        for _ in range(num):
             move, info, timestamp = self.handle_input(input())
             StateManager.add_event(move, info, timestamp)
             CommandManager.run(move, info, timestamp)
