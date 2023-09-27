@@ -19,4 +19,4 @@ class Callback:
         return self.func(*args, **kwds)
 
     def __repr__(self) -> str:
-        return f"{self.func.__name__} at {self.timestamp}"
+        return f"{self.func.__name__.capitalize()} at {self.timestamp}"

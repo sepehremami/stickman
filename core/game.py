@@ -1,6 +1,6 @@
 import logging
 from .state import StateManager
-from .army import Miner
+from .army import ArmyUnit, Miner
 
 
 class CommandManager:
@@ -11,6 +11,14 @@ class CommandManager:
         StateManager.add_troop(troop)
 
     @staticmethod
+    def damage(info, timestamp):
+        damage = int(info.pop())
+        idx = int(info.pop())
+        troop = StateManager.damage(idx, damage)
+        isinstance(troop, ArmyUnit) and print(troop.hp)
+        print("dead")
+
+    @staticmethod
     def money_status(*args):
         return StateManager.money_status()
 
@@ -18,7 +26,6 @@ class CommandManager:
     def run(move, info, timestamp):
         controller = getattr(CommandManager, move)
         result = controller(info, timestamp)
-        print(result)
 
 
 class Game:
