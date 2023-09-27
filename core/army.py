@@ -4,7 +4,6 @@ from .state import StateManager
 
 
 class BaseArmy:
-
     """
     tracking army units is handled in this class
     """

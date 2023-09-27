@@ -23,12 +23,23 @@ class StateManager:
 
     @classmethod
     def add_event(cls, move, info, timestamp):
+        diff = timestamp - cls.last_command_timestamp
         cls.update_time(timestamp)
         cls.__events.append((move, timestamp))
 
         for callback in cls.__callbacks:
             if callback.timestamp + callback.cooldown < timestamp:
-                callback()
+                if callback.func.__name__ != "goverment_help":
+                    n = diff / callback.cooldown
+                    logging.info(
+                        f"\n\tdiff:{diff}\n\tn:{n}\n\tcooldown:{callback.cooldown} \
+                        \n\ttimestamp:{timestamp}\n\tlast_time:{cls.last_command_timestamp} \
+                        \n\tcallback timestamp:{callback.timestamp}"
+                    )
+                    for i in range(int(n)):
+                        callback()
+                else:
+                    callback()
                 callback.timestamp += callback.cooldown
 
         logging.info(f"callbacks inside add event{cls.__callbacks}")

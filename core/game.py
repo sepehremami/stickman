@@ -26,6 +26,7 @@ class CommandManager:
     def run(move, info, timestamp):
         controller = getattr(CommandManager, move)
         result = controller(info, timestamp)
+        result is not None and print(result)
 
 
 class Game:
