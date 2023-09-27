@@ -74,3 +74,23 @@ class StateManager:
 
     # for callback in cls.__callbackes:
     #     callback(move, info, timestamp)
+
+    @classmethod
+    def damage(cls, troop_id, damage: int):
+        troop = cls._get_troop_by_id(troop_id=troop_id)
+        troop.hp -= damage
+        if cls._check_troop_perished:
+            return "dead"
+        return troop
+
+    @classmethod
+    def _get_troop_by_id(cls, troop_id):
+        for troop in cls.__troops:
+            if troop.idx == troop_id:
+                return troop
+
+    @classmethod
+    def _check_troop_perished(cls, troop):
+        if troop.hp == 0:
+            return True
+        return False
