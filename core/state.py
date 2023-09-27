@@ -24,6 +24,7 @@ class StateManager:
     @classmethod
     def add_event(cls, move, info, timestamp):
         diff = timestamp - cls.last_command_timestamp
+        logging.debug(f"cls.last_command_timestamp: {cls.last_command_timestamp}")
         cls.update_time(timestamp)
         cls.__events.append((move, timestamp))
 
@@ -36,7 +37,10 @@ class StateManager:
                         \n\ttimestamp:{timestamp}\n\tlast_time:{cls.last_command_timestamp} \
                         \n\tcallback timestamp:{callback.timestamp}"
                     )
-                    for _ in range(int(n)):
+                    if n > 1:
+                        for _ in range(int(n)):
+                            callback()
+                    else:
                         callback()
                 else:
                     callback()
