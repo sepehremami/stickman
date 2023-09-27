@@ -1,53 +1,20 @@
-2023-09-27 06:35:43,927 - INFO - Game started!
-2023-09-27 06:35:43,927 - INFO - Inside Game.run
-2023-09-27 06:35:49,399 - INFO - callbacks inside add event[Goverment_help at 0]
-2023-09-27 06:35:49,399 - INFO - state manager add events: [('add', 0.001)]
-2023-09-27 06:35:49,399 - INFO - 1 comming in are ava
-2023-09-27 06:35:49,399 - INFO - 1 work units are ava
-2023-09-27 06:35:49,399 - INFO - Miner Troop object (100) at your service
-2023-09-27 06:35:49,399 - INFO - yield_coin
-2023-09-27 06:35:49,399 - INFO - callbacks are here: [Goverment_help at 0, Yield_coin at 0.001]
-2023-09-27 06:36:00,289 - INFO - inside callback <function goverment_help at 0x7f60f9792840>
-2023-09-27 06:36:00,289 - INFO - 
+2023-09-27 07:13:06,770 - INFO - Game started!
+2023-09-27 07:13:23,437 - INFO - Inside Game.run
+2023-09-27 07:13:24,691 - INFO - user input : money-status 00:19:999
+2023-09-27 07:13:24,691 - INFO - callbacks inside add event[Goverment_help at 0]
+2023-09-27 07:13:24,691 - INFO - state manager add events: [('money_status', 19.999)]
+2023-09-27 07:13:33,794 - INFO - user input : money-status 00:20:001
+2023-09-27 07:13:33,794 - INFO - inside callback <function goverment_help at 0x7fab996a16c0>
+2023-09-27 07:13:33,794 - INFO - 
 	0
 	20
 	0
-2023-09-27 06:36:00,289 - INFO - 
-	diff:59.999
-	n:5.9999
-	cooldown:10                         
-	timestamp:60.0
-	last_time:60.0                         
-	callback timestamp:0.001
-2023-09-27 06:36:00,290 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
-2023-09-27 06:36:00,290 - INFO - 
-	0.001
-	10
-	0.001
-2023-09-27 06:36:00,290 - INFO - Miner yielding coin
-2023-09-27 06:36:00,290 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
-2023-09-27 06:36:00,290 - INFO - 
-	0.001
-	10
-	0.001
-2023-09-27 06:36:00,290 - INFO - Miner yielding coin
-2023-09-27 06:36:00,290 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
-2023-09-27 06:36:00,290 - INFO - 
-	0.001
-	10
-	0.001
-2023-09-27 06:36:00,290 - INFO - Miner yielding coin
-2023-09-27 06:36:00,290 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
-2023-09-27 06:36:00,290 - INFO - 
-	0.001
-	10
-	0.001
-2023-09-27 06:36:00,290 - INFO - Miner yielding coin
-2023-09-27 06:36:00,290 - INFO - inside callback <bound method Miner.yield_coin of Miner Troop object (100) at your service>
-2023-09-27 06:36:00,290 - INFO - 
-	0.001
-	10
-	0.001
-2023-09-27 06:36:00,290 - INFO - Miner yielding coin
-2023-09-27 06:36:00,290 - INFO - callbacks inside add event[Goverment_help at 20, Yield_coin at 10.001]
-2023-09-27 06:36:00,290 - INFO - state manager add events: [('add', 0.001), ('money_status', 60.0)]
+2023-09-27 07:13:33,794 - INFO - callbacks inside add event[Goverment_help at 20]
+2023-09-27 07:13:33,794 - INFO - state manager add events: [('money_status', 19.999), ('money_status', 20.001)]
+2023-09-27 07:13:39,986 - INFO - user input : add miner 00:20:002
+2023-09-27 07:13:39,986 - INFO - callbacks inside add event[Goverment_help at 20]
+2023-09-27 07:13:39,986 - INFO - state manager add events: [('money_status', 19.999), ('money_status', 20.001), ('add', 20.002)]
+2023-09-27 07:13:39,986 - INFO - 1 comming in are ava
+2023-09-27 07:13:39,986 - INFO - 1 work units are ava
+2023-09-27 07:13:39,986 - INFO - Miner Troop object (100) at your service
+2023-09-27 07:13:39,986 - INFO - callbacks are here: [Goverment_help at 20, Yield_coin at 20.002]

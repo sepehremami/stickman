@@ -8,7 +8,7 @@ import logging
 
 logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
-    level=logging.INFO,
+    level=logging.DEBUG,
     filename="log/test.log",
 )
 
@@ -47,6 +47,7 @@ class GameTestCase(unittest.TestCase):
 
         # Assert the expected output
         self.assertEqual(mock_stdout.getvalue(), "expected output here\n")
+        logging.info(mock_stdout.getvalue())
 
 
 if __name__ == "__main__":
