@@ -47,7 +47,7 @@ class Miner(ArmyUnit):
 
     def yield_coin(self):
         StateManager.collect_money(self.__class__.collected_money)
-        logging.info(f"{self.__class__.__name__} yielding coin")
+        logging.info(f"{self.__class__.__name__} number {self.idx} yielding coin")
         pass
 
     # yield_coin = sign_function(yield_coin)
