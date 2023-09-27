@@ -13,15 +13,16 @@ class CommandManager:
         else:
             troop = eval(f"{role.capitalize()}(timestamp)")
             StateManager.add_troop(troop)
-            print(troop.total_work_unit)
+            return troop.total_work_unit
 
     @staticmethod
     def damage(info, timestamp):
         damage = int(info.pop())
         idx = int(info.pop())
         troop = StateManager.damage(idx, damage)
-        isinstance(troop, ArmyUnit) and print(troop.hp)
-        # print("dead")
+        if isinstance(troop, ArmyUnit):
+            return troop.hp
+        return "dead"
 
     @staticmethod
     def money_status(*args):
@@ -31,7 +32,7 @@ class CommandManager:
     def run(move, info, timestamp):
         controller = getattr(CommandManager, move)
         result = controller(info, timestamp)
-        result is not None and print(result)
+        # result is not None and print(result)
         if result:
             return result
 
@@ -70,7 +71,7 @@ class Game:
             move, info, timestamp = self.handle_input(input())
             StateManager.add_event(move, info, timestamp)
             res = CommandManager.run(move, info, timestamp)
-            # print(res)
+            print(res)
 
 
 """

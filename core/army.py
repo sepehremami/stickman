@@ -84,4 +84,5 @@ class Magikill(BaseArmy):
 
 
 class Giant(BaseArmy):
+    work_unit = 5
     pass

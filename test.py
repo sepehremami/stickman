@@ -28,7 +28,6 @@ class GameTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
-        # Assert the expected output
 
     @patch("sys.stdout", new_callable=StringIO)
     @patch("builtins.input")
@@ -56,6 +55,7 @@ class GameTestCase(unittest.TestCase):
         # Assert the expected output
         self.assertEqual(mock_stdout.getvalue(), "expected output here\n")
         logging.info(mock_stdout.getvalue())
+
 
     @patch("sys.stdout", new_callable=StringIO)
     @patch("builtins.input")

@@ -20,11 +20,6 @@ class StateManager:
     game_over = False
 
     @classmethod
-    def call_callbacks(cls):
-        for callback in cls.__callbacks:
-            callback()
-
-    @classmethod
     def set_state(cls, turn, dragon_health):
         cls.DRAGON = dragon_health
         cls.number_of_turns = turn
@@ -32,21 +27,18 @@ class StateManager:
             f"\n\t\tdragon health: {cls.DRAGON}\n\t\t dragon input: {dragon_health}\n\t\t"
         )
 
-    # @classmethod
-    # def _set_state(cls):
-    #     ...
-
     @classmethod
     def add_event(cls, move, info, timestamp):
-        # if len(cls.__events) == 0:
-        #     StateManager._set_state()
         if cls._check_dragon_dead():
             return "dead"
-        diff = timestamp - cls.last_command_timestamp
         logging.debug(f"cls.last_command_timestamp: {cls.last_command_timestamp}")
         cls.update_time(timestamp)
         cls.__events.append((move, timestamp))
+        cls.call_callbacks(timestamp=timestamp)
 
+    @classmethod
+    def call_callbacks(cls, timestamp):
+        diff = timestamp - cls.last_command_timestamp
         for callback in cls.__callbacks:
             if callback.timestamp + callback.cooldown < timestamp:
                 if callback.func.__name__ != "goverment_help":
