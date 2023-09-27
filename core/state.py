@@ -36,7 +36,7 @@ class StateManager:
                         \n\ttimestamp:{timestamp}\n\tlast_time:{cls.last_command_timestamp} \
                         \n\tcallback timestamp:{callback.timestamp}"
                     )
-                    for i in range(int(n)):
+                    for _ in range(int(n)):
                         callback()
                 else:
                     callback()
