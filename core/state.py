@@ -15,6 +15,9 @@ class StateManager:
     __troops = []
     __events = []
     GOV_HELP = 180
+    DRAGON = 0
+    number_of_turns = 0
+    game_over = False
 
     @classmethod
     def call_callbacks(cls):
@@ -22,7 +25,23 @@ class StateManager:
             callback()
 
     @classmethod
+    def set_state(cls, turn, dragon_health):
+        cls.DRAGON = dragon_health
+        cls.number_of_turns = turn
+        logging.info(
+            f"\n\t\tdragon health: {cls.DRAGON}\n\t\t dragon input: {dragon_health}\n\t\t"
+        )
+
+    # @classmethod
+    # def _set_state(cls):
+    #     ...
+
+    @classmethod
     def add_event(cls, move, info, timestamp):
+        # if len(cls.__events) == 0:
+        #     StateManager._set_state()
+        if cls._check_dragon_dead():
+            return "dead"
         diff = timestamp - cls.last_command_timestamp
         logging.debug(f"cls.last_command_timestamp: {cls.last_command_timestamp}")
         cls.update_time(timestamp)
@@ -108,3 +127,22 @@ class StateManager:
         if troop.hp == 0:
             return True
         return False
+
+    @classmethod
+    def _check_dragon_dead(cls):
+        if cls.DRAGON == 0:
+            return "dead"
+        return False
+
+    @classmethod
+    def attack_dragon(cls, damage):
+        if cls._check_dragon_dead() and damage >= cls.DRAGON:
+            cls.DRAGON = 0
+            game_over = True
+            return "dead"
+
+        else:
+            cls.DRAGON -= damage
+            logging.info(
+                f"dragon is taking {damage} damage; its health is: {cls.DRAGON}"
+            )
