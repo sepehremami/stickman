@@ -21,7 +21,7 @@ class CommandManager:
         idx = int(info.pop())
         troop = StateManager.damage(idx, damage)
         isinstance(troop, ArmyUnit) and print(troop.hp)
-        print("dead")
+        # print("dead")
 
     @staticmethod
     def money_status(*args):
@@ -70,9 +70,7 @@ class Game:
             move, info, timestamp = self.handle_input(input())
             StateManager.add_event(move, info, timestamp)
             res = CommandManager.run(move, info, timestamp)
-            if res == "dead":
-                print("game over")
-                break
+            # print(res)
 
 
 """
