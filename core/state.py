@@ -59,6 +59,8 @@ class StateManager:
                     if n > 1:
                         for _ in range(int(n)):
                             callback()
+                            if check := cls._check_dragon_dead():
+                                return check
                     else:
                         callback()
                 else:
@@ -74,6 +76,8 @@ class StateManager:
 
     @classmethod
     def money_status(cls):
+        if check := cls._check_dragon_dead():
+            return check
         return cls.__money
 
     @classmethod
@@ -136,10 +140,10 @@ class StateManager:
 
     @classmethod
     def attack_dragon(cls, damage):
-        if cls._check_dragon_dead() and damage >= cls.DRAGON:
+        if check := cls._check_dragon_dead() and damage >= cls.DRAGON:
             cls.DRAGON = 0
             game_over = True
-            return "dead"
+            return check
 
         else:
             cls.DRAGON -= damage
