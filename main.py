@@ -20,4 +20,5 @@ logging.basicConfig(
 if __name__ == "__main__":
     game = Game()
     logging.info("Game started!")
-    game.run()
+    command_num, dragon_health = map(int, input().split())
+    game.run(command_num, dragon_health)
