@@ -1,6 +1,7 @@
-from core.game import Game
-import logging
 import os
+import logging
+from core.state import StateManager
+from core.game import Game
 
 file_path = "log/app.log"
 
