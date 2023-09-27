@@ -59,7 +59,7 @@ class GameTestCase(unittest.TestCase):
 
     @patch("sys.stdout", new_callable=StringIO)
     @patch("builtins.input")
-    def test_game_run(self, mock_input, mock_stdout):
+    def test_game_run2(self, mock_input, mock_stdout):
         # Mock user input
         mock_input.side_effect = [
             "money-status 00:00:01",
