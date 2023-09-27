@@ -1,6 +1,6 @@
 import logging
 from .state import StateManager
-from .army import ArmyUnit, Miner
+from .army import ArmyUnit, Miner, Swordwrath
 
 
 class CommandManager:
@@ -32,6 +32,8 @@ class CommandManager:
         controller = getattr(CommandManager, move)
         result = controller(info, timestamp)
         result is not None and print(result)
+        if result:
+            return result
 
 
 class Game:
@@ -62,10 +64,15 @@ class Game:
 
     def run(self, num, dragon_health):
         logging.info("Inside Game.run")
+        StateManager.set_state(num, dragon_health)
+
         for _ in range(num):
             move, info, timestamp = self.handle_input(input())
             StateManager.add_event(move, info, timestamp)
-            CommandManager.run(move, info, timestamp)
+            res = CommandManager.run(move, info, timestamp)
+            if res == "dead":
+                print("game over")
+                break
 
 
 """
