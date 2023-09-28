@@ -70,7 +70,9 @@ class Miner(ArmyUnit):
 
     def callback_yield_coin(self):
         StateManager.collect_money(self.__class__.collected_money)
-        logging.info(f"{self.__class__.__name__} number {self.idx} yielding coin")
+        logging.info(
+            f"{self.__class__.__name__} number {self.__class__.idx} yielding coin"
+        )
 
     # yield_coin = sign_function(yield_coin)
     _callback = callback_yield_coin
@@ -86,6 +88,9 @@ class Swordwrath(ArmyUnit):
         StateManager.attack_dragon(self.power)
         logging.info(
             f"{self.__class__.__name__} number {self.idx} is attacking the dragon"
+        )
+        logging.info(
+            f"dragon health is {StateManager.get_enemy_status()} at timestamp "
         )
 
     _callback = callback_attack_dragon
@@ -103,6 +108,7 @@ class Spearton(Swordwrath):
     hp = 250
     price = 500
     work_unit = 2
+    cooldown = 3
     power = 35
 
 
@@ -110,6 +116,7 @@ class Magikill(Swordwrath):
     hp = 80
     price = 1200
     work_unit = 4
+    cooldown = 5
     power = 200
 
 
@@ -117,4 +124,5 @@ class Giant(Swordwrath):
     hp = 1000
     price = 1500
     work_unit = 4
+    cooldown = 4
     power = 150
