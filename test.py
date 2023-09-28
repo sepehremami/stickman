@@ -59,16 +59,44 @@ class GameTestCase(unittest.TestCase):
     @patch("builtins.input")
     def test_game_run2(self, mock_input, mock_stdout):
         # Mock user input
+
         mock_input.side_effect = [
             "money-status 00:00:01",
-            "add swordwrath 00:01:002",
-            "money-status 00:2:03",
-            "add miner 00:2:04",
-            "money-status 0:12:05",
+            "add miner 00:00:02",
+            "add miner 00:00:03",
+            "add miner 00:00:04",
+            "money-status 00:00:05",
+            "add miner 00:10:06",
+            "add miner 00:10:07",
+            "add swordwrath 02:00:08",
+            "add archidon 02:00:09",
+            "army-status 02:00:10",
+            "add spearton 02:00:11",
+            "add magikill 02:00:12",
+            "add giant 02:00:13",
+            "enemy-status 02:00:14",
+            "army-status 02:00:15",
+            "damage 1 10 02:01:16",
+            "damage 2 10 02:01:17",
+            "damage 3 20 02:01:18",
+            "damage 4 3 02:01:19",
+            "damage 5 15 02:01:20",
+            "damage 6 1000 02:01:21",
+            "damage 7 60 02:01:22",
+            "damage 8 16 02:01:23",
+            "damage 16 16 02:01:24",
+            "enemy-status 02:01:25",
+            "army-status 02:01:26",
+            "damage 6 17 02:31:27",
+            "damage 7 18 02:31:28",
+            "damage 8 19 02:31:29",
+            "damage 9 20 02:31:30",
+            "enemy-status 02:31:31",
+            "army-status 02:31:32",
         ]
 
         # Run the game
-        self.game.run(5, 100)
+        self.game.run(32, 10000)
 
         # Assert the expected output
         self.assertEqual(mock_stdout.getvalue(), "expected output here\n")
