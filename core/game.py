@@ -1,6 +1,6 @@
 import logging
 from .state import StateManager
-from .army import ArmyUnit, Miner, Swordwrath
+from .army import *
 
 
 class CommandManager:
@@ -8,12 +8,12 @@ class CommandManager:
     def add(info, timestamp):
         role: str = info.pop()
         price = int(eval((f"{role.capitalize()}.price")))
-        if price > StateManager.money_status():
+        if price > StateManager.get_money_status():
             print("not enough money")
         else:
             troop = eval(f"{role.capitalize()}(timestamp)")
             StateManager.add_troop(troop)
-            return troop.total_work_unit
+            return troop.idx
 
     @staticmethod
     def damage(info, timestamp):
@@ -26,13 +26,29 @@ class CommandManager:
 
     @staticmethod
     def money_status(*args):
-        return StateManager.money_status()
+        return StateManager.get_enemy_status()
+
+    @staticmethod
+    def enemy_status(*args):
+        return StateManager.get_money_status()
+
+    @staticmethod
+    def army_status(*args):
+        army = StateManager.get_troops()
+        stats = [
+            len(list(troop for troop in army if isinstance(troop, Miner))),
+            len(list(troop for troop in army if isinstance(troop, Swordwrath))),
+            len(list(troop for troop in army if isinstance(troop, Archidon))),
+            len(list(troop for troop in army if isinstance(troop, Spearton))),
+            len(list(troop for troop in army if isinstance(troop, Magikill))),
+            len(list(troop for troop in army if isinstance(troop, Giant))),
+        ]
+        return stats
 
     @staticmethod
     def run(move, info, timestamp):
         controller = getattr(CommandManager, move)
         result = controller(info, timestamp)
-        # result is not None and print(result)
         if result:
             return result
 
