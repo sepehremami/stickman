@@ -22,7 +22,10 @@ class BaseArmy:
     total_work_unit = 0
 
     def __init__(self, work_unit) -> None:
-        logging.info(f"{work_unit} comming in are ava")
+        logging.info(
+            f"\n\t{self.__class__.__name__} class is being created.\n\t\
+                {work_unit} comming in are available"
+        )
         self.__class__.total_work_unit += work_unit
         logging.info(f"{self.__class__.total_work_unit} work units are ava")
 
@@ -51,9 +54,6 @@ class ArmyUnit(BaseArmy):
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__} Troop object ({self.hp}) at your service"
-
-    def __len__(self):
-        return self.__class__.work_unit
 
 
 class Miner(ArmyUnit):

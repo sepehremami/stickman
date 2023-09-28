@@ -1,15 +1,19 @@
 import logging
 from .state import StateManager
 from .army import *
+import sys
+import os
 
 
 class CommandManager:
     @staticmethod
     def add(info, timestamp):
         role: str = info.pop()
-        price = int(eval((f"{role.capitalize()}.price")))
-        if price > StateManager.get_money_status():
-            print("not enough money")
+        troop_obj = eval((f"{role.capitalize()}"))
+        if troop_obj.price > StateManager.get_money_status():
+            return "not enough money"
+        elif StateManager.check_army_capacity(troop_obj):
+            return "too many army"
         else:
             troop = eval(f"{role.capitalize()}(timestamp)")
             StateManager.add_troop(troop)
