@@ -1,6 +1,7 @@
 import logging
 from .callback import Callback
 from .decorators import check_dragon_dead
+from .building import Mine
 
 
 def goverment_help():
@@ -9,22 +10,20 @@ def goverment_help():
         f"inside goverment_help at timestamp: {StateManager.last_command_timestamp}"
     )
 
-    # if callback.timestamp + callback.cooldown <= timestamp:
 
-
-@check_dragon_dead
 class StateManager:
-    last_command_timestamp = 0
     __money = 500
     __callbacks = [
         Callback(goverment_help, 0, cooldown=20, timestamp=0, last_command_timestamp=0)
     ]
     __troops = {}
     __events = []
+    __mines = []
     GOV_HELP = 180
     DRAGON = 0
     number_of_turns = 0
     game_over = False
+    last_command_timestamp = 0
 
     @classmethod
     def get_troops(cls):
@@ -33,12 +32,21 @@ class StateManager:
 
     @classmethod
     def set_state(cls, turn, dragon_health):
+        # set Dragon health
         cls.DRAGON = dragon_health
+
+        # Generate 4 mines
+        for tag in range(4):
+            cls.__mines.append(Mine(tag))
+
+        # set turns (just in case)
         cls.number_of_turns = turn
+
         logging.info(
             f"\n\t\tdragon health: {cls.DRAGON}\n\t\t dragon input: {dragon_health}\n\t\t"
         )
 
+    # @check_dragon_dead
     @classmethod
     def add_event(cls, move, info, timestamp):
         if cls._check_dragon_dead():
@@ -64,7 +72,7 @@ class StateManager:
     def get_army_status(cls):
         units = 0
         army = StateManager.get_troops()
-        for idx, troop in army.items():
+        for _, troop in army.items():
             units += troop.work_unit
         logging.debug(f"there are a total of {units} units")
         return units
@@ -108,12 +116,12 @@ class StateManager:
         logging.info(f"callbacks are here: {cls.__callbacks}")
 
     @classmethod
-    def damage(cls, troop_id, damage: int):
+    def damage(cls, troop_id, damage: int, timestamp):
         troop = cls._get_troop_by_id(troop_id=troop_id)
         if troop and type(troop) is not str:
             if damage >= troop.hp:
                 cls.remove_troop_callbacks(cls.__troops.pop(troop_id))
-                logging.info(f"{troop} is dead")
+                logging.info(f"{troop} is dead at {timestamp}")
                 return "troop is dead"
             else:
                 troop.hp -= damage

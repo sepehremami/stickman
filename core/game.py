@@ -23,7 +23,7 @@ class CommandManager:
     def damage(info, timestamp):
         damage = int(info.pop())
         idx = int(info.pop())
-        result = StateManager.damage(idx, damage)
+        result = StateManager.damage(idx, damage, timestamp)
 
         return result
 
@@ -60,15 +60,6 @@ class Game:
     def __init__(self) -> None:
         pass
 
-    def next_turn(self, turn):
-        pass
-
-    def combat(self):
-        pass
-
-    def end_game(self):
-        pass
-
     @staticmethod
     def handle_input(userin):
         logging.info(f"user input : {userin}")
@@ -88,7 +79,7 @@ class Game:
 
         for _ in range(num):
             move, info, timestamp = self.handle_input(input())
-            StateManager.add_event(move, info, timestamp)
+            StateManager.add_event(move=move, info=info, timestamp=timestamp)
             res = CommandManager.run(move, info, timestamp)
             print(*res) if isinstance(res, list) else print(res)
 
