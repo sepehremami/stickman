@@ -5,12 +5,12 @@ def check_dragon_dead(cls):
         if callable(method):
             original_methods[name] = method
 
-    def check_dragon_wrapper(self, *args, **kwargs):
-        if self.DRAGON == 0:
-            self.game_over = True
+    def check_dragon_wrapper(cls, *args, **kwargs):
+        if cls.DRAGON == 0:
+            cls.game_over = True
             return "dead"
         else:
-            return original_methods[self.__class__.__name__](self, *args, **kwargs)
+            return original_methods[cls.__class__.__name__](cls, *args, **kwargs)
 
     # Replace the original methods with the wrapper
     for name, method in original_methods.items():
