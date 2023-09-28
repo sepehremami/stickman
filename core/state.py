@@ -148,26 +148,13 @@ class StateManager:
 
     @classmethod
     def call_callbacks(cls, timestamp):
-        diff = timestamp - cls.last_command_timestamp
+        repeat = timestamp - cls.last_command_timestamp
         for callback in cls.__callbacks:
-            if callback.timestamp + callback.cooldown < timestamp:
-                if callback.func.__name__ != "goverment_help":
-                    n = diff / callback.cooldown
-                    logging.info(
-                        f"\n\tdiff:{diff}\n\tn:{n}\n\tcooldown:{callback.cooldown} \
-                        \n\ttimestamp:{timestamp}\n\tlast_time:{cls.last_command_timestamp} \
-                        \n\tcallback timestamp:{callback.timestamp}"
-                    )
-                    for _ in range(int(n)):
-                        callback()
-                        if check := cls._check_dragon_dead():
-                            return check
-                    else:
-                        callback()
-                else:
+            if callback.timestamp + callback.cooldown <= timestamp:
+                """checking if the callback should be called"""
+                loop = int(repeat / callback.cooldown)
+                for _ in range(loop):
                     callback()
-                callback.timestamp += callback.cooldown
 
         logging.info(f"callbacks inside add event{cls.__callbacks}")
         logging.info(f"state manager add events: {cls.__events}")
-
