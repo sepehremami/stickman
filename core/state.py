@@ -7,6 +7,7 @@ def goverment_help():
     StateManager.collect_money(StateManager.GOV_HELP)
 
 
+@check_dragon_dead
 class StateManager:
     last_command_timestamp = 0
     __money = 500
@@ -21,6 +22,10 @@ class StateManager:
     game_over = False
 
     @classmethod
+    def get_troops(cls):
+        return cls.__troops
+
+    @classmethod
     def set_state(cls, turn, dragon_health):
         cls.DRAGON = dragon_health
         cls.number_of_turns = turn
@@ -33,19 +38,25 @@ class StateManager:
         if cls._check_dragon_dead():
             return "dead"
         logging.debug(f"cls.last_command_timestamp: {cls.last_command_timestamp}")
-        cls.update_time(timestamp)
         cls.__events.append((move, timestamp))
         cls.call_callbacks(timestamp=timestamp)
+        cls.update_time(timestamp)
 
     @classmethod
     def update_time(cls, timestamp):
         cls.last_command_timestamp = timestamp
 
     @classmethod
-    def money_status(cls):
-        if check := cls._check_dragon_dead():
-            return check
+    def get_money_status(cls):
         return cls.__money
+
+    @classmethod
+    def get_enemy_status(cls):
+        return cls.DRAGON
+
+    @classmethod
+    def _check_army_status(cls):
+        return sum(len(troop) for troop in cls.__troops)
 
     @classmethod
     def collect_money(cls, money):
@@ -54,8 +65,13 @@ class StateManager:
     @classmethod
     def add_troop(cls, troop_obj):
         if cls.__money - troop_obj.price < 0:
-            print("Not enough money")
+            print("not enough money")
             return
+
+        if cls._check_army_status() + troop_obj.work_unit >= 50:
+            print("too many army")
+            return
+
         cls.__money -= troop_obj.price
         callback = troop_obj._callback
 
@@ -67,17 +83,9 @@ class StateManager:
                 cls.last_command_timestamp,
             )
         )
-        # TODO: check if len troops is out of range
         cls.__troops.append(troop_obj)
         logging.info(troop_obj)
         logging.info(f"callbacks are here: {cls.__callbacks}")
-
-    @classmethod
-    def run(cls, move, info, timestamp):
-        ...
-
-    # for callback in cls.__callbackes:
-    #     callback(move, info, timestamp)
 
     @classmethod
     def damage(cls, troop_id, damage: int):
