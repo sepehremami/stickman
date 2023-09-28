@@ -3,10 +3,21 @@ from typing import Callable
 from .state import StateManager
 
 
+class Counter:
+    idx = 0
+
+    @classmethod
+    def allocate_id(cls) -> "int":
+        cls.idx += 1
+        return cls.idx
+
+
 class BaseArmy:
     """
     tracking army units is handled in this class
     """
+
+    idx = 0
 
     total_work_unit = 0
 
@@ -15,6 +26,11 @@ class BaseArmy:
         self.__class__.total_work_unit += work_unit
         logging.info(f"{self.__class__.total_work_unit} work units are ava")
 
+    @classmethod
+    def allocate_id(cls):
+        cls.idx += 1
+        return cls.idx
+
 
 class ArmyUnit(BaseArmy):
     hp: int = None
@@ -22,15 +38,22 @@ class ArmyUnit(BaseArmy):
     cooldown: int = None
     created = None
     _callback: Callable = None
-    idx = 0
+    work_unit = 1
 
     def __init__(self, timestamp) -> None:
+        logging.info(
+            f"inside __init__ of {self.__class__.__name__} class \
+            at {timestamp}, {self.__class__.idx} is the id and {super().allocate_id()} is the allocated_id"
+        )
         self.__class__.created = timestamp
-        self.idx = self.__class__.idx + 1
+        self.__class__.idx = Counter.allocate_id()
         super().__init__(self.__class__.work_unit)
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__} Troop object ({self.hp}) at your service"
+
+    def __len__(self):
+        return self.__class__.work_unit
 
 
 class Miner(ArmyUnit):
@@ -42,8 +65,8 @@ class Miner(ArmyUnit):
     hp = 100
     price = 150  # coins
     collected_money = 100  # coins
-    cooldown = 10  # seconds
-    work_unit = 1
+    cooldown = 10  #
+    work_unit = 2
 
     def callback_yield_coin(self):
         StateManager.collect_money(self.__class__.collected_money)
@@ -57,7 +80,6 @@ class Swordwrath(ArmyUnit):
     hp = 100
     price = 125
     cooldown = 1
-    work_unit = 1
     power = 20
 
     def callback_attack_dragon(self):
@@ -71,18 +93,28 @@ class Swordwrath(ArmyUnit):
     # TODO: take the callback funtion by the callback_ in the function name instead of doing this
 
 
-class Archidon(BaseArmy):
-    pass
+class Archidon(Swordwrath):
+    hp = 80
+    price = 300
+    power = 10
 
 
-class Spearton(BaseArmy):
-    pass
+class Spearton(Swordwrath):
+    hp = 250
+    price = 500
+    work_unit = 2
+    power = 35
 
 
-class Magikill(BaseArmy):
-    pass
+class Magikill(Swordwrath):
+    hp = 80
+    price = 1200
+    work_unit = 4
+    power = 200
 
 
-class Giant(BaseArmy):
-    work_unit = 5
-    pass
+class Giant(Swordwrath):
+    hp = 1000
+    price = 1500
+    work_unit = 4
+    power = 150
