@@ -14,7 +14,7 @@ class StateManager:
     __callbacks = [
         Callback(goverment_help, cooldown=20, timestamp=0, last_command_timestamp=0)
     ]
-    __troops = []
+    __troops = {}
     __events = []
     GOV_HELP = 180
     DRAGON = 0
