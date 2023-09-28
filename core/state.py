@@ -12,7 +12,7 @@ class StateManager:
     last_command_timestamp = 0
     __money = 500
     __callbacks = [
-        Callback(goverment_help, cooldown=20, timestamp=0, last_command_timestamp=0)
+        Callback(goverment_help, 0, cooldown=20, timestamp=0, last_command_timestamp=0)
     ]
     __troops = {}
     __events = []
@@ -23,6 +23,7 @@ class StateManager:
 
     @classmethod
     def get_troops(cls):
+        logging.info(f"all troops: {cls.__troops}")
         return cls.__troops
 
     @classmethod
@@ -56,7 +57,10 @@ class StateManager:
 
     @classmethod
     def _check_army_status(cls):
-        return sum(len(troop) for troop in cls.__troops)
+        units = 0
+        for idx, troop in cls.__troops.items():
+            units += len(troop)
+        return units
 
     @classmethod
     def collect_money(cls, money):
@@ -78,34 +82,50 @@ class StateManager:
         cls.__callbacks.append(
             Callback(
                 callback,
+                troop_obj.idx,
                 troop_obj.cooldown,
                 troop_obj.created,
                 cls.last_command_timestamp,
             )
         )
-        cls.__troops.append(troop_obj)
+
+        cls.__troops[troop_obj.idx] = troop_obj
+
         logging.info(troop_obj)
         logging.info(f"callbacks are here: {cls.__callbacks}")
 
     @classmethod
     def damage(cls, troop_id, damage: int):
         troop = cls._get_troop_by_id(troop_id=troop_id)
-        troop.hp -= damage
-        if cls._check_troop_perished:
-            return "dead"
+        if troop and type(troop) is not str:
+            if damage >= troop.hp:
+                cls.remove_troop_callbacks(cls.__troops.pop(troop_id))
+                logging.info(f"{troop} is dead")
+                return "troop is dead"
+            else:
+                troop.hp -= damage
+                return troop.hp
         return troop
 
     @classmethod
     def _get_troop_by_id(cls, troop_id):
-        for troop in cls.__troops:
-            if troop.idx == troop_id:
-                return troop
+        try:
+            logging.debug(
+                f"this is the troop you are looking for (possibly) {cls.__troops[troop_id]}"
+            )
+            return cls.__troops[troop_id]
+        except KeyError:
+            logging.debug(f"troop with {troop_id} id does not exist")
+            return "no matter"
 
     @classmethod
-    def _check_troop_perished(cls, troop):
-        if troop.hp == 0:
-            return True
-        return False
+    def remove_troop_callbacks(cls, troop):
+        for callback in cls.__callbacks:
+            if callback.troop_id == troop.idx:
+                cls.__callbacks.remove(callback)
+                logging.warning(
+                    f"{callback.func.__name__} removed from callback list for troop with id:{troop.idx}"
+                )
 
     @classmethod
     def _check_dragon_dead(cls):
@@ -122,8 +142,8 @@ class StateManager:
 
         else:
             cls.DRAGON -= damage
-            logging.info(
-                f"dragon is taking {damage} damage; its health is: {cls.DRAGON}"
+            logging.warning(
+                f"dragon is taking {damage} damage; its health is: {cls.DRAGON} at timestamp {cls.last_command_timestamp}"
             )
 
     @classmethod
@@ -138,11 +158,10 @@ class StateManager:
                         \n\ttimestamp:{timestamp}\n\tlast_time:{cls.last_command_timestamp} \
                         \n\tcallback timestamp:{callback.timestamp}"
                     )
-                    if n > 1:
-                        for _ in range(int(n)):
-                            callback()
-                            if check := cls._check_dragon_dead():
-                                return check
+                    for _ in range(int(n)):
+                        callback()
+                        if check := cls._check_dragon_dead():
+                            return check
                     else:
                         callback()
                 else:
@@ -151,3 +170,4 @@ class StateManager:
 
         logging.info(f"callbacks inside add event{cls.__callbacks}")
         logging.info(f"state manager add events: {cls.__events}")
+

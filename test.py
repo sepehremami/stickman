@@ -88,11 +88,12 @@ class GameTestCase(unittest.TestCase):
             "enemy-status 02:01:25",
             "army-status 02:01:26",
             "damage 6 17 02:31:27",
-            "damage 7 18 02:31:28",
-            "damage 8 19 02:31:29",
-            "damage 9 20 02:31:30",
-            "enemy-status 02:31:31",
-            "army-status 02:31:32",
+            "enemy-status 02:31:28",
+            "damage 7 18 02:31:29",
+            "damage 8 19 02:31:30",
+            "damage 9 20 02:31:31",
+            "enemy-status 02:31:32",
+            "army-status 02:31:33",
         ]
 
         # Run the game
