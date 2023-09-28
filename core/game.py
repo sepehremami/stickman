@@ -19,29 +19,28 @@ class CommandManager:
     def damage(info, timestamp):
         damage = int(info.pop())
         idx = int(info.pop())
-        troop = StateManager.damage(idx, damage)
-        if isinstance(troop, ArmyUnit):
-            return troop.hp
-        return "dead"
+        result = StateManager.damage(idx, damage)
+
+        return result
 
     @staticmethod
     def money_status(*args):
-        return StateManager.get_enemy_status()
+        return StateManager.get_money_status()
 
     @staticmethod
     def enemy_status(*args):
-        return StateManager.get_money_status()
+        return StateManager.get_enemy_status()
 
     @staticmethod
     def army_status(*args):
         army = StateManager.get_troops()
         stats = [
-            len(list(troop for troop in army if isinstance(troop, Miner))),
-            len(list(troop for troop in army if isinstance(troop, Swordwrath))),
-            len(list(troop for troop in army if isinstance(troop, Archidon))),
-            len(list(troop for troop in army if isinstance(troop, Spearton))),
-            len(list(troop for troop in army if isinstance(troop, Magikill))),
-            len(list(troop for troop in army if isinstance(troop, Giant))),
+            len(list(troop for _, troop in army.items() if type(troop) is Miner)),
+            len(list(troop for _, troop in army.items() if type(troop) is Swordwrath)),
+            len(list(troop for _, troop in army.items() if type(troop) is Archidon)),
+            len(list(troop for _, troop in army.items() if type(troop) is Spearton)),
+            len(list(troop for _, troop in army.items() if type(troop) is Magikill)),
+            len(list(troop for _, troop in army.items() if type(troop) is Giant)),
         ]
         return stats
 
