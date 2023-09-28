@@ -4,9 +4,10 @@ import logging
 
 class Callback:
     def __init__(
-        self, func: Callable, cooldown, timestamp, last_command_timestamp
+        self, func: Callable, troop_id, cooldown, timestamp, last_command_timestamp
     ) -> None:
         self.func = func
+        self.troop_id = troop_id
         self.cooldown = cooldown
         self.timestamp = timestamp
         self.last_command_timestamp = last_command_timestamp
