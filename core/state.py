@@ -5,6 +5,11 @@ from .decorators import check_dragon_dead
 
 def goverment_help():
     StateManager.collect_money(StateManager.GOV_HELP)
+    logging.debug(
+        f"inside goverment_help at timestamp: {StateManager.last_command_timestamp}"
+    )
+
+    # if callback.timestamp + callback.cooldown <= timestamp:
 
 
 @check_dragon_dead
@@ -56,11 +61,19 @@ class StateManager:
         return cls.DRAGON
 
     @classmethod
-    def _check_army_status(cls):
+    def get_army_status(cls):
         units = 0
-        for idx, troop in cls.__troops.items():
-            units += len(troop)
+        army = StateManager.get_troops()
+        for idx, troop in army.items():
+            units += troop.work_unit
+        logging.debug(f"there are a total of {units} units")
         return units
+
+    @classmethod
+    def check_army_capacity(cls, troop_obj):
+        units = cls.get_army_status()
+        if units + troop_obj.work_unit >= 50:
+            return True
 
     @classmethod
     def collect_money(cls, money):
@@ -72,8 +85,8 @@ class StateManager:
             print("not enough money")
             return
 
-        if cls._check_army_status() + troop_obj.work_unit >= 50:
-            print("too many army")
+        if cls.check_army_capacity(troop_obj):
+            # print("too many army")
             return
 
         cls.__money -= troop_obj.price
@@ -153,8 +166,11 @@ class StateManager:
             if callback.timestamp + callback.cooldown <= timestamp:
                 """checking if the callback should be called"""
                 loop = int(repeat / callback.cooldown)
+                if callback.func.__name__ == "goverment_help":
+                    callback()
                 for _ in range(loop):
                     callback()
+                callback.timestamp += callback.cooldown
 
         logging.info(f"callbacks inside add event{cls.__callbacks}")
         logging.info(f"state manager add events: {cls.__events}")
