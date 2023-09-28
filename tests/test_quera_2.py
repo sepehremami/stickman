@@ -22,7 +22,7 @@ except OSError as e:
 logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
     level=logging.DEBUG,
-    filename="../log/test.log",
+    filename="log/test.log",
 )
 
 

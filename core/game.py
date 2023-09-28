@@ -90,7 +90,7 @@ class Game:
             move, info, timestamp = self.handle_input(input())
             StateManager.add_event(move, info, timestamp)
             res = CommandManager.run(move, info, timestamp)
-            print(res)
+            print(*res) if isinstance(res, list) else print(res)
 
 
 """
