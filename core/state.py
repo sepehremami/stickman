@@ -128,7 +128,7 @@ class StateManager(StateMineMixin):
                 cls.remove_troop_callbacks(cls.__troops.pop(troop_id))
                 logging.info(f"{troop} is dead at {timestamp}")
                 if cls.check_is_miner():
-                    cls.remove_from_mine(troop_id)
+                    cls.remove_from_mine(troop)
                 return "troop is dead"
             else:
                 troop.hp -= damage
