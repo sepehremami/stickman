@@ -95,7 +95,7 @@ class Swordwrath(ArmyUnit):
 
     _callback = callback_attack_dragon
 
-    # TODO: take the callback funtion by the callback_ in the function name instead of doing this
+    # TODO: take the callback funtion by the callback_ in the function name 
 
 
 class Archidon(Swordwrath):
