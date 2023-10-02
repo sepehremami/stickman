@@ -2,6 +2,7 @@ import logging
 from .callback import Callback
 from .decorators import check_dragon_dead
 from .building import Mine
+from .mixins import StateMineMixin
 
 
 def goverment_help():
@@ -11,16 +12,7 @@ def goverment_help():
     )
 
 
-class StateMine:
-    @classmethod
-    def handle_mine(cls):
-        mines = cls.__mines
-        for mine in mines:
-            if mine.capacity == 0:
-                return mine
-
-
-class StateManager(StateMine):
+class StateManager(StateMineMixin):
     __money = 500
     __callbacks = [
         Callback(goverment_help, 0, cooldown=20, timestamp=0, last_command_timestamp=0)
@@ -103,11 +95,14 @@ class StateManager(StateMine):
             return
 
         if cls.check_army_capacity(troop_obj):
-            # print("too many army")
             return
 
         cls.__money -= troop_obj.price
-       
+
+        # if mine capacity is full
+        if cls.check_mine_capacity():
+            cls.allocate_miner(troop_obj)
+
         callback = troop_obj._callback
 
         cls.__callbacks.append(
@@ -132,6 +127,8 @@ class StateManager(StateMine):
             if damage >= troop.hp:
                 cls.remove_troop_callbacks(cls.__troops.pop(troop_id))
                 logging.info(f"{troop} is dead at {timestamp}")
+                if cls.check_is_miner():
+                    cls.remove_from_mine(troop_id)
                 return "troop is dead"
             else:
                 troop.hp -= damage

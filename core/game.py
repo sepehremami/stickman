@@ -4,24 +4,17 @@ from .army import *
 
 
 class CommandManager:
-    def miner_allocation(self, troop_obj):
-        if not isinstance(troop_obj, Miner):
-            return True
-        
-
-
     @staticmethod
     def add(info, timestamp):
         role: str = info.pop()
         troop_obj = eval((f"{role.capitalize()}"))
-        
+
         if troop_obj.price > StateManager.get_money_status():
             return "not enough money"
         elif StateManager.check_army_capacity(troop_obj):
             return "too many army"
         else:
             troop = eval(f"{role.capitalize()}(timestamp)")
-            
             StateManager.add_troop(troop)
             return troop.idx
 
