@@ -5,13 +5,13 @@
 class StateMineMixin:
     @classmethod
     def get_mine(cls):
-        for mine in cls.__mines:
+        for mine in cls.mines:
             if not mine.is_full():
                 return mine
 
     @classmethod
     def check_mine_capacity(cls):
-        capacity = sum(i.capacity for i in cls.__mines)
+        capacity = sum(i.capacity for i in cls.mines)
         if capacity >= 8:
             return False
         return True
@@ -26,7 +26,7 @@ class StateMineMixin:
 
     @classmethod
     def remove_from_mine(cls, troop_obj):
-        for mine in cls.__mines:
+        for mine in cls.mines:
             miner = mine.remove_miner(troop_obj.idx)
             if not troop_obj.__class__.__name__ == "Miner":
                 return miner

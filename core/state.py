@@ -19,7 +19,7 @@ class StateManager(StateMineMixin):
     ]
     __troops = {}
     __events = []
-    __mines = []
+    mines = []
     GOV_HELP = 180
     DRAGON = 0
     number_of_turns = 0
@@ -38,7 +38,7 @@ class StateManager(StateMineMixin):
 
         # Generate 4 mines
         for tag in range(4):
-            cls.__mines.append(Mine(tag))
+            cls.mines.append(Mine(tag))
 
         # set turns (just in case)
         cls.number_of_turns = turn

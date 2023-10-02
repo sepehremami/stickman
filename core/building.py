@@ -7,7 +7,7 @@ class BaseBuilding:
 
 class Mine(BaseBuilding):
     def add_miner(self, miner):
-        self.miners.appned(miner)
+        self.miners.append(miner)
         self.capacity += 1
         return self.miners
 
