@@ -11,7 +11,16 @@ def goverment_help():
     )
 
 
-class StateManager:
+class StateMine:
+    @classmethod
+    def handle_mine(cls):
+        mines = cls.__mines
+        for mine in mines:
+            if mine.capacity == 0:
+                return mine
+
+
+class StateManager(StateMine):
     __money = 500
     __callbacks = [
         Callback(goverment_help, 0, cooldown=20, timestamp=0, last_command_timestamp=0)
@@ -98,6 +107,7 @@ class StateManager:
             return
 
         cls.__money -= troop_obj.price
+       
         callback = troop_obj._callback
 
         cls.__callbacks.append(

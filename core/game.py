@@ -1,21 +1,27 @@
 import logging
 from .state import StateManager
 from .army import *
-import sys
-import os
 
 
 class CommandManager:
+    def miner_allocation(self, troop_obj):
+        if not isinstance(troop_obj, Miner):
+            return True
+        
+
+
     @staticmethod
     def add(info, timestamp):
         role: str = info.pop()
         troop_obj = eval((f"{role.capitalize()}"))
+        
         if troop_obj.price > StateManager.get_money_status():
             return "not enough money"
         elif StateManager.check_army_capacity(troop_obj):
             return "too many army"
         else:
             troop = eval(f"{role.capitalize()}(timestamp)")
+            
             StateManager.add_troop(troop)
             return troop.idx
 
@@ -45,7 +51,16 @@ class CommandManager:
             len(list(troop for _, troop in army.items() if type(troop) is Spearton)),
             len(list(troop for _, troop in army.items() if type(troop) is Magikill)),
             len(list(troop for _, troop in army.items() if type(troop) is Giant)),
-        ]
+        ]  # TODO check if we can handle this with a named tupple
+
+        # stats_dict = {}
+        # for idx, troop in army.items():
+        #     key = troop.__class__.__name__.lower
+        #     if stats_dict.get(key):
+        #         stats_dict[key] += 1
+        #     else:
+        #         stats_dict[key] = 1
+        # # wont work if troops are removes
         return stats
 
     @staticmethod
