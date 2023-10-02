@@ -26,4 +26,5 @@ class Mine(BaseBuilding):
         for miner in self.miners:
             if miner.idx == miner_id:
                 self.miners.remove(miner)
+                self.capacity -= 1
                 return miner

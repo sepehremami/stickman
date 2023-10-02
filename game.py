@@ -190,7 +190,7 @@ class StateManager(StateMine):
             if damage >= troop.hp:
                 cls.remove_troop_callbacks(cls.__troops.pop(troop_id))
                 # logging.info(f"{troop} is dead at {timestamp}")
-                return "troop is dead"
+                return "dead"
             else:
                 troop.hp -= damage
                 return troop.hp

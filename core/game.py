@@ -46,15 +46,12 @@ class CommandManager:
             len(list(troop for _, troop in army.items() if type(troop) is Giant)),
         ]  # TODO check if we can handle this with a named tupple
 
-        # stats_dict = {}
-        # for idx, troop in army.items():
-        #     key = troop.__class__.__name__.lower
-        #     if stats_dict.get(key):
-        #         stats_dict[key] += 1
-        #     else:
-        #         stats_dict[key] = 1
-        # # wont work if troops are removes
         return stats
+
+    @staticmethod
+    def mine(*args):
+        mines = [mine.capacity for mine in StateManager.mines]
+        return mines
 
     @staticmethod
     def run(move, info, timestamp):
