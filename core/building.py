@@ -3,11 +3,12 @@ class BaseBuilding:
         self.tag = tag
         self.capacity = 0
         self.miners = []
+        # ids of miners
 
 
 class Mine(BaseBuilding):
     def add_miner(self, miner):
-        self.miners.append(miner)
+        self.miners.append(miner.idx)
         self.capacity += 1
         return self.miners
 
@@ -24,7 +25,7 @@ class Mine(BaseBuilding):
 
     def remove_miner(self, miner_id):
         for miner in self.miners:
-            if miner.idx == miner_id:
+            if miner == miner_id:
                 self.miners.remove(miner)
                 self.capacity -= 1
-                return miner
+                return self.miners
