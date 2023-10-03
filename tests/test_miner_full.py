@@ -49,16 +49,17 @@ class GameTestCase(unittest.TestCase):
             "add miner 3:00:05",  # 7
             "add miner 3:00:06",  # 8
             "money-status 4:00:01",
-            "add miner 3:00:07",  # 9
-            "mine 3:00:08",
-            "damage 7 150 3:00:09",
-            "mine 3:01:0",
-            "damage 8 150 3:00:10",
-            "mine 3:01:0",
-            "damage 9 150 3:00:11",
-            "mine 3:01:0",
-            "damage 6 150 3:00:12",
-            "mine 3:01:0",
+            "damage 7 150 5:00:09",
+            "damage 8 150 6:00:10",
+            "damage 9 150 7:00:11",
+            "damage 5 150 7:00:21",
+            "mine 7:2:0",
+            "add miner 7:3:0",  # 8
+            "add miner 7:3:1",  # 8
+            "mine 7:4:1",
+            "damage 1 150 7:5:11",
+            "damage 2 150 7:6:21",
+            
         ]
         mock_input.side_effect = l
         # Run the game
