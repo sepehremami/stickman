@@ -13,6 +13,10 @@ class CommandManager:
             return "not enough money"
         elif StateManager.check_army_capacity(troop_obj):
             return "too many army"
+        elif role == "miner":
+            miner = eval(f"{role.capitalize()}(timestamp)")
+            StateManager.add_miner(miner)
+            return miner.idx
         else:
             troop = eval(f"{role.capitalize()}(timestamp)")
             StateManager.add_troop(troop)
@@ -23,7 +27,6 @@ class CommandManager:
         damage = int(info.pop())
         idx = int(info.pop())
         result = StateManager.damage(idx, damage, timestamp)
-
         return result
 
     @staticmethod
@@ -38,7 +41,6 @@ class CommandManager:
     def army_status(*args):
         army = StateManager.get_troops()
         stats = []
-  
         troops = ["Miner", "Swordwrath", "Archidon", "Spearton", "Magikill", "Giant"]
         for i in troops:
             stats.append(
