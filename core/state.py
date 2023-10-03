@@ -17,6 +17,8 @@ class StateManager(StateMineMixin):
     __callbacks = [
         Callback(goverment_help, 0, cooldown=20, timestamp=0, last_command_timestamp=0)
     ]
+
+    waiting = []
     troops = {}
     __events = []
     mines = []
@@ -103,8 +105,7 @@ class StateManager(StateMineMixin):
     def add_miner(cls, miner):
         cls.__money -= miner.price
         waiting = cls.allocate_miner(miner)
-        if not waiting:
-            ...  # cls.waiting.append(miner)
+        # cls.waiting.append(miner)
         cls.troops[miner.idx] = miner
 
     @classmethod
@@ -130,6 +131,7 @@ class StateManager(StateMineMixin):
                 cls.remove_troop_callbacks(dead_troop)
                 if dead_troop.__class__.__name__ == "Miner":
                     cls.dead_miner(dead_troop)
+                    logging.error(f"inside damage: {dead_troop}")
 
                 logging.info(f"{troop} is dead at {timestamp}")
                 return "dead"

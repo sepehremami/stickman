@@ -1,13 +1,16 @@
 # from .army import Miner
 # from .types import Miner
+import logging
 
 
 class StateMineMixin:
-    waiting = []
-
     @classmethod
     def check_mine_capacity(cls):
-        cap = sum(mine.capacity for mine in cls.mines)
+        # cap = sum(mine.capacity for mine in cls.mines)
+        cap = 0
+        for mine in cls.mines:
+            cap += mine.capacity
+
         if cap < 8:
             return True
         return False
@@ -22,6 +25,7 @@ class StateMineMixin:
     def allocate_miner(cls, miner):
         if cls.check_mine_capacity():
             mine = cls.get_mine()
+            logging.error(f"inside allocate_miner: {mine}")
             mine.add_miner(miner)
             cls.add_callbacks(miner)
         else:
@@ -34,5 +38,5 @@ class StateMineMixin:
             mine.remove_miner(miner.idx)
 
         if cls.waiting:
-            for miner in cls.waiting:
-                cls.allocate_miner(miner)
+            logging.error(f"inside dead_miner: {cls.waiting}")
+            cls.allocate_miner(cls.waiting.pop())

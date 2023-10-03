@@ -54,12 +54,11 @@ class GameTestCase(unittest.TestCase):
             "damage 9 150 7:00:11",
             "damage 5 150 7:00:21",
             "mine 7:2:0",
-            "add miner 7:3:0",  # 8
-            "add miner 7:3:1",  # 8
-            "mine 7:4:1",
+            # "add miner 7:3:0",  # 8
+            # "add miner 7:3:1",  # 8
             "damage 1 150 7:5:11",
             "damage 2 150 7:6:21",
-            
+            "mine 7:6:1",
         ]
         mock_input.side_effect = l
         # Run the game

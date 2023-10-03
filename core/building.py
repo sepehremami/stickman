@@ -1,3 +1,6 @@
+import logging
+
+
 class BaseBuilding:
     def __init__(self, tag) -> None:
         self.tag = tag
@@ -5,9 +8,13 @@ class BaseBuilding:
         self.miners = []
         # ids of miners
 
+    def __repr__(self) -> str:
+        return f"{{{self.__class__.__name__}-{self.tag}-capacity: {self.capacity}-miners: {self.miners}}}"
+
 
 class Mine(BaseBuilding):
     def add_miner(self, miner):
+        logging.error(f"inside add_miner {miner}, {self.__repr__()}")
         self.miners.append(miner.idx)
         self.capacity += 1
         return self.miners
