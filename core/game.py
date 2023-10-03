@@ -37,15 +37,13 @@ class CommandManager:
     @staticmethod
     def army_status(*args):
         army = StateManager.get_troops()
-        stats = [
-            len(list(troop for _, troop in army.items() if type(troop) is Miner)),
-            len(list(troop for _, troop in army.items() if type(troop) is Swordwrath)),
-            len(list(troop for _, troop in army.items() if type(troop) is Archidon)),
-            len(list(troop for _, troop in army.items() if type(troop) is Spearton)),
-            len(list(troop for _, troop in army.items() if type(troop) is Magikill)),
-            len(list(troop for _, troop in army.items() if type(troop) is Giant)),
-        ]  # TODO check if we can handle this with a named tupple
-
+        stats = []
+  
+        troops = ["Miner", "Swordwrath", "Archidon", "Spearton", "Magikill", "Giant"]
+        for i in troops:
+            stats.append(
+                len(list(troop for _, troop in army.items() if type(troop) is eval(i)))
+            )
         return stats
 
     @staticmethod

@@ -99,11 +99,6 @@ class StateManager(StateMineMixin):
 
         cls.__money -= troop_obj.price
 
-        # if mine capacity is full
-        if troop_obj.__class__.__name__ == "Miner":
-            if cls.check_mine_capacity():
-                result = cls.allocate_miner(troop_obj)
-
         callback = troop_obj._callback
 
         cls.__callbacks.append(
@@ -128,10 +123,6 @@ class StateManager(StateMineMixin):
             if damage >= troop.hp:
                 cls.remove_troop_callbacks(cls.__troops.pop(troop_id))
                 logging.info(f"{troop} is dead at {timestamp}")
-                if cls.check_is_miner(troop):
-                    cls.remove_from_mine(troop)
-                    if miners := cls.waiting:
-                        cls.allocate_miner(miners.pop())
                 return "dead"
             else:
                 troop.hp -= damage
@@ -168,7 +159,6 @@ class StateManager(StateMineMixin):
     def attack_dragon(cls, damage):
         if check := cls._check_dragon_dead() and damage >= cls.DRAGON:
             cls.DRAGON = 0
-            game_over = True
             return check
 
         else:
