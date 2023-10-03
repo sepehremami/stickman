@@ -17,7 +17,7 @@ class StateManager(StateMineMixin):
     __callbacks = [
         Callback(goverment_help, 0, cooldown=20, timestamp=0, last_command_timestamp=0)
     ]
-    __troops = {}
+    troops = {}
     __events = []
     mines = []
     GOV_HELP = 180
@@ -28,8 +28,8 @@ class StateManager(StateMineMixin):
 
     @classmethod
     def get_troops(cls):
-        logging.info(f"all troops: {cls.__troops}")
-        return cls.__troops
+        logging.info(f"all troops: {cls.troops}")
+        return cls.troops
 
     @classmethod
     def set_state(cls, turn, dragon_health):
@@ -90,15 +90,25 @@ class StateManager(StateMineMixin):
 
     @classmethod
     def add_troop(cls, troop_obj):
-        if cls.__money - troop_obj.price < 0:
-            print("not enough money")
-            return
-
-        if cls.check_army_capacity(troop_obj):
-            return
-
         cls.__money -= troop_obj.price
 
+        cls.add_callbacks(troop_obj)
+
+        cls.troops[troop_obj.idx] = troop_obj
+
+        logging.info(troop_obj)
+        logging.info(f"callbacks are here: {cls.__callbacks}")
+
+    @classmethod
+    def add_miner(cls, miner):
+        cls.__money -= miner.price
+        waiting = cls.allocate_miner(miner)
+        if not waiting:
+            ...  # cls.waiting.append(miner)
+        cls.troops[miner.idx] = miner
+
+    @classmethod
+    def add_callbacks(cls, troop_obj):
         callback = troop_obj._callback
 
         cls.__callbacks.append(
@@ -111,17 +121,16 @@ class StateManager(StateMineMixin):
             )
         )
 
-        cls.__troops[troop_obj.idx] = troop_obj
-
-        logging.info(troop_obj)
-        logging.info(f"callbacks are here: {cls.__callbacks}")
-
     @classmethod
     def damage(cls, troop_id, damage: int, timestamp):
         troop = cls._get_troop_by_id(troop_id=troop_id)
         if troop and type(troop) is not str:
             if damage >= troop.hp:
-                cls.remove_troop_callbacks(cls.__troops.pop(troop_id))
+                dead_troop = cls.troops.pop(troop_id)
+                cls.remove_troop_callbacks(dead_troop)
+                if dead_troop.__class__.__name__ == "Miner":
+                    cls.dead_miner(dead_troop)
+
                 logging.info(f"{troop} is dead at {timestamp}")
                 return "dead"
             else:
@@ -133,9 +142,9 @@ class StateManager(StateMineMixin):
     def _get_troop_by_id(cls, troop_id):
         try:
             logging.debug(
-                f"this is the troop you are looking for (possibly) {cls.__troops[troop_id]}"
+                f"this is the troop you are looking for (possibly) {cls.troops[troop_id]}"
             )
-            return cls.__troops[troop_id]
+            return cls.troops[troop_id]
         except KeyError:
             logging.debug(f"troop with {troop_id} id does not exist")
             return "no matter"
