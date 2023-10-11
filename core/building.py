@@ -14,7 +14,7 @@ class BaseBuilding:
 
 class Mine(BaseBuilding):
     def add_miner(self, miner):
-        logging.error(f"inside add_miner {miner}, {self.__repr__()}")
+        logging.warning(f"inside add_miner {miner}, {self.__repr__()}")
         self.miners.append(miner.idx)
         self.capacity += 1
         return self.miners

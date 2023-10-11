@@ -84,7 +84,10 @@ class Game:
 
         for _ in range(num):
             move, info, timestamp = self.handle_input(input())
-            StateManager.add_event(move=move, info=info, timestamp=timestamp)
+            end = StateManager.add_event(move, info, timestamp)
+            if StateManager.game_over:
+                print("game over")
+
             res = CommandManager.run(move, info, timestamp)
             print(*res) if isinstance(res, list) else print(res)
 

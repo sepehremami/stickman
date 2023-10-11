@@ -25,7 +25,7 @@ class StateMineMixin:
     def allocate_miner(cls, miner):
         if cls.check_mine_capacity():
             mine = cls.get_mine()
-            logging.error(f"inside allocate_miner: {mine}")
+            logging.warning(f"inside allocate_miner: {mine}")
             mine.add_miner(miner)
             cls.add_callbacks(miner)
         else:
@@ -38,5 +38,5 @@ class StateMineMixin:
             mine.remove_miner(miner.idx)
 
         if cls.waiting:
-            logging.error(f"inside dead_miner: {cls.waiting}")
+            logging.warning(f"inside dead_miner: {cls.waiting}")
             cls.allocate_miner(cls.waiting.pop())

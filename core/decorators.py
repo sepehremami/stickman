@@ -1,12 +1,19 @@
-from functools import wraps
+from functools import update_wrapper
+import logging
 
 
-def check_dragon_dead(func, dragon=None):
-    @wraps(func)
-    def wrapper(dragon, *args, **kwargs):
-        if dragon == 0:
-            print("Can't perform action while dragon is alive!")
-            return
-        return func(*args, **kwargs)
+def check_dragon_dead(func, *args, **kwargs):
+    logging.warning(f"inside deco{func}\nargs{args}\nkwargs{kwargs}")
 
-    return wrapper
+    def wrapper(cls, *args, **kwds):
+        # return func(*args, **kwds)
+        logging.warning(
+            f"inside deco{func}\nargs{args}\nkwargs{kwargs}\n0: {args[0]}\n1: {args[1]}\n2: {args[2]}"
+        )
+        if cls.DRAGON == 0:
+            cls.game_over = True
+        else:
+            result = func(cls, args[0], args[1], args[2])
+            return result
+
+    return update_wrapper(wrapper, func)

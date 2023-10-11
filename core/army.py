@@ -26,8 +26,8 @@ class BaseArmy:
             f"\n\t{self.__class__.__name__} class is being created.\n\t\
                 {work_unit} comming in are available"
         )
-        self.__class__.total_work_unit += work_unit
         logging.info(f"{self.__class__.total_work_unit} work units are ava")
+        self.__class__.total_work_unit += work_unit
 
     @classmethod
     def allocate_id(cls):
@@ -92,7 +92,6 @@ class Swordwrath(ArmyUnit):
         logging.info(
             f"dragon health is {StateManager.get_enemy_status()} at timestamp "
         )
-
     _callback = callback_attack_dragon
 
     # TODO: take the callback funtion by the callback_ in the function name 

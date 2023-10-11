@@ -40,25 +40,18 @@ class GameTestCase(unittest.TestCase):
 
         l = [
             "money-status 00:00:01",
-            "add miner 00:00:02",  # 1
-            "add miner 00:00:03",  # 2
-            "add miner 01:00:03",  # 3
-            "add swordwrath 01:00:04",  # 3
-            "add miner 01:04:06",  # 3
-            "add miner 01:05:07",  # 3
-            "add miner 01:06:08",  # 3
-            "army-status 01:07:09",
-            "add miner 03:00:03",  # 5
-            "add miner 03:00:04",  # 6
-            "add miner 03:00:05",
-            "money-status 13:00:5",
-            "add giant 14:00:05",  # 7  # 4
-            "add giant 14:01:05",  # 4
-            "add giant 14:02:05",  # 4
-            "add giant 14:03:05",  # 4
-            "money-status 14:00:01",
-            "damage 1 150 17:5:11",
-            "damage 2 150 17:6:21",
+            "add miner 00:00:02",  # 350
+            "add miner 00:00:03",  # 350
+            "add miner 00:00:04",  # 350
+            "money-status 00:00:10",  # 50
+            "money-status 00:10:03",  # 250
+            "money-status 00:20:02",  # 450
+            "money-status 00:30:06",  # 950
+            "money-status 00:40:07",  # 3
+            "money-status 00:50:08",  # 3
+            "money-status 01:00:09",
+            # "money-status 03:00:03",  # 5
+            # "money-status 03:00:04",  # 6
         ]
         mock_input.side_effect = l
         print(len(l))

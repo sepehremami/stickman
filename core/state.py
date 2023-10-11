@@ -49,11 +49,11 @@ class StateManager(StateMineMixin):
             f"\n\t\tdragon health: {cls.DRAGON}\n\t\t dragon input: {dragon_health}\n\t\t"
         )
 
-    # @check_dragon_dead
     @classmethod
+    @check_dragon_dead
     def add_event(cls, move, info, timestamp):
-        if cls._check_dragon_dead():
-            return "dead"
+        # if cls._check_dragon_dead():
+        #     return "dead"
         logging.debug(f"cls.last_command_timestamp: {cls.last_command_timestamp}")
         cls.__events.append((move, timestamp))
         cls.call_callbacks(timestamp=timestamp)
@@ -111,6 +111,7 @@ class StateManager(StateMineMixin):
     @classmethod
     def add_callbacks(cls, troop_obj):
         callback = troop_obj._callback
+        # callback = getattr(troop_obj, startswith("callback_))
 
         cls.__callbacks.append(
             Callback(
@@ -131,7 +132,7 @@ class StateManager(StateMineMixin):
                 cls.remove_troop_callbacks(dead_troop)
                 if dead_troop.__class__.__name__ == "Miner":
                     cls.dead_miner(dead_troop)
-                    logging.error(f"inside damage: {dead_troop}")
+                    logging.warning(f"inside damage: {dead_troop}")
 
                 logging.info(f"{troop} is dead at {timestamp}")
                 return "dead"

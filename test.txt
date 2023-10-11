@@ -1,0 +1,21 @@
+21 50
+money-status 00:00:001
+add miner 00:00:002
+add miner 00:00:003
+add miner 01:00:004
+add swordwrath 01:00:005
+add miner 01:04:006
+add miner 01:05:007
+add miner 01:06:008
+army-status 01:07:009
+add miner 03:00:003
+add miner 03:00:004
+add miner 03:00:005
+money-status 13:00:005
+add giant 14:00:005
+add giant 14:01:005
+add giant 14:02:005
+add giant 14:03:005
+money-status 14:00:001
+damage 1 150 17:5:011
+damage 2 150 17:6:021

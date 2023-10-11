@@ -3,7 +3,9 @@ class BaseBuilding:
         self.tag = tag
         self.capacity = 0
         self.miners = []
-        # ids of miners
+
+    def __repr__(self) -> str:
+        return f"{{{self.__class__.__name__}-{self.tag}-capacity: {self.capacity}-miners: {self.miners}}}"
 
 
 class Mine(BaseBuilding):
@@ -36,8 +38,15 @@ from typing import Any, Callable
 
 class Callback:
     def __init__(
-        self, func: Callable, troop_id, cooldown, timestamp, last_command_timestamp
+        self,
+        name,
+        func: Callable,
+        troop_id,
+        cooldown,
+        timestamp,
+        last_command_timestamp,
     ) -> None:
+        self.name = name
         self.func = func
         self.troop_id = troop_id
         self.cooldown = cooldown
@@ -51,30 +60,23 @@ class Callback:
         return f"{self.func.__name__.capitalize()} at {self.timestamp}"
 
 
-from functools import wraps
+from functools import wraps, update_wrapper
 
 
-def check_dragon_dead(func, dragon=None):
-    @wraps(func)
-    def wrapper(dragon, *args, **kwargs):
-        if dragon == 0:
-            print("Can't perform action while dragon is alive!")
-            return
-        return func(*args, **kwargs)
+def check_dragon_dead(func, *args, **kwargs):
+    def wrapper(cls, *args, **kwds):
+        if cls.DRAGON == 0:
+            cls.game_over = True
 
-    return wrapper
+        result = func(cls, args[0], args[1], args[2])
+        return result
 
-
-# from .army import Miner
-# from .types import Miner
+    return update_wrapper(wrapper, func)
 
 
 class StateMineMixin:
-    waiting = []
-
     @classmethod
     def check_mine_capacity(cls):
-        # cap = sum(mine.capacity for mine in cls.mines)
         cap = 0
         for mine in cls.mines:
             cap += mine.capacity
@@ -115,10 +117,19 @@ def goverment_help():
 class StateManager(StateMineMixin):
     __money = 500
     __callbacks = [
-        Callback(goverment_help, 0, cooldown=20, timestamp=0, last_command_timestamp=0)
+        Callback(
+            "goverment_help",
+            goverment_help,
+            0,
+            cooldown=20,
+            timestamp=0,
+            last_command_timestamp=0,
+        )
     ]
-    troops = {}
+
     __events = []
+    waiting = []
+    troops = {}
     mines = []
     GOV_HELP = 180
     DRAGON = 0
@@ -142,11 +153,9 @@ class StateManager(StateMineMixin):
         # set turns (just in case)
         cls.number_of_turns = turn
 
-    # @check_dragon_dead
     @classmethod
+    @check_dragon_dead
     def add_event(cls, move, info, timestamp):
-        if cls._check_dragon_dead():
-            return "dead"
         cls.__events.append((move, timestamp))
         cls.call_callbacks(timestamp=timestamp)
         cls.update_time(timestamp)
@@ -192,7 +201,8 @@ class StateManager(StateMineMixin):
     @classmethod
     def add_miner(cls, miner):
         cls.__money -= miner.price
-        cls.allocate_miner(miner)
+        waiting = cls.allocate_miner(miner)
+        # cls.waiting.append(miner)
         cls.troops[miner.idx] = miner
 
     @classmethod
@@ -201,6 +211,7 @@ class StateManager(StateMineMixin):
 
         cls.__callbacks.append(
             Callback(
+                troop_obj.__repr__(),
                 callback,
                 troop_obj.idx,
                 troop_obj.cooldown,
@@ -239,34 +250,32 @@ class StateManager(StateMineMixin):
                 cls.__callbacks.remove(callback)
 
     @classmethod
-    def _check_dragon_dead(cls):
-        if cls.DRAGON == 0:
-            return "dead"
-        return False
-
-    @classmethod
     def attack_dragon(cls, damage):
-        if check := cls._check_dragon_dead() and damage >= cls.DRAGON:
+        if damage >= cls.DRAGON:
             cls.DRAGON = 0
-            return check
-
+            cls.game_over = True
+            return
         else:
             cls.DRAGON -= damage
 
     @classmethod
     def call_callbacks(cls, timestamp):
-        repeat = timestamp - cls.last_command_timestamp
         for callback in cls.__callbacks:
-            if callback.timestamp + callback.cooldown <= timestamp:
-                loop = int(repeat / callback.cooldown)
-                if callback.func.__name__ == "goverment_help":
+            while True:
+                created = callback.timestamp
+                s = round(created + callback.cooldown, 4)
+                if timestamp >= s:
                     callback()
-                for _ in range(loop):
-                    callback()
-                callback.timestamp += callback.cooldown
+                    callback.timestamp = s
+                else:
+                    break
 
-
-from typing import Callable
+    @classmethod
+    def _check_dragon_dead(cls):
+        if cls.DRAGON == 0:
+            cls.game_over = True
+            return "dead"
+        return False
 
 
 class Counter:
@@ -279,12 +288,7 @@ class Counter:
 
 
 class BaseArmy:
-    """
-    tracking army units is handled in this class
-    """
-
     idx = 0
-
     total_work_unit = 0
 
     def __init__(self, work_unit) -> None:
@@ -314,11 +318,6 @@ class ArmyUnit(BaseArmy):
 
 
 class Miner(ArmyUnit):
-    """
-    every 10 seconds after initialization \
-          call the callback function 
-    """
-
     hp = 100
     price = 150  # coins
     collected_money = 100  # coins
@@ -455,7 +454,9 @@ class Game:
 
         for _ in range(num):
             move, info, timestamp = self.handle_input(input())
-            StateManager.add_event(move=move, info=info, timestamp=timestamp)
+            StateManager.add_event(move, info, timestamp)
+            if StateManager.game_over:
+                print("game over")
             res = CommandManager.run(move, info, timestamp)
             print(*res) if isinstance(res, list) else print(res)
 
